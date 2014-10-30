@@ -1,0 +1,21 @@
+/*
+ * Main SASS file
+ *
+ * Syntax is in SCSS, since i'm using lib-sass to compile the styles and
+ * there is no way at moment to use my favorite SASS syntax
+ */
+
+
+/* Force the charset
+================================================== */
+
+@charset "UTF-8";
+
+
+/* Core
+================================================== */
+
+@import "bower";
+@import "base";
+@import "layout";
+@import "media_queries";

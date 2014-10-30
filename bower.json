@@ -1,0 +1,7 @@
+{
+  "name": "24i-google-api-search",
+  "private": true,
+  "dependencies": {
+    "jquery": "~1.11.1"
+  }
+}
