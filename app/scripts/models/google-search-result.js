@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  define(['libs/library'], function($) {
+  define(['libs/fakejQuery'], function($) {
 
   });
 

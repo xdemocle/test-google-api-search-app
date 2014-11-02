@@ -10,7 +10,6 @@
 
     var SiteView = new View({
       'id': 'site-view',
-      // 'model': 'modellll',
       'template': Template
     });
 

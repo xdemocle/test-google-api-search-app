@@ -1,5 +1,5 @@
 {
-  "name": "24i-google-api-search",
+  "name": "24i-google-api-search-app",
   "devDependencies": {
     "apache-server-configs": "^2.7.1",
     "grunt": "^0.4.5",

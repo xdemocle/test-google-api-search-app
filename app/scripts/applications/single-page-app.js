@@ -2,7 +2,7 @@
 (function() {
   'use strict';
 
-  define(['libs/library', 'applications/base/application'], function($, Application) {
+  define(['libs/fakejQuery', 'applications/base/application'], function($, Application) {
 
     var SinglePageApp = function() {
 

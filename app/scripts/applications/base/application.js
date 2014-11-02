@@ -2,9 +2,7 @@
 (function() {
   'use strict';
 
-  define([
-    'libs/library'
-  ], function($) {
+  define(['libs/fakejQuery'], function($) {
 
     function Application(options) {
 
@@ -38,8 +36,10 @@
             fileName = that.main.replace('#',''),
             filepath = 'views/'+fileName;
 
+            console.log(wrapper)
+
         // Check if container not exist
-        if (wrapper.length >= 0) {
+        if (wrapper.length <= 0) {
 
           // Make a container onfly
           wrapper = $('div', {'id':'app','class':'app'});
@@ -51,16 +51,9 @@
         // Load main view for base layout
         require([filepath], function(MainView) {
 
-          // console.log( MainView.el );
-
           // Append the site view rendered
           $(that.container).append(MainView.el);
-
         });
-
-        // this.main
-
-        // this.container
       }
     };
 
