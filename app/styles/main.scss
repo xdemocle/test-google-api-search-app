@@ -12,10 +12,23 @@
 @charset "UTF-8";
 
 
+/* Bower Components
+================================================== */
+
+
+/* Normalize */
+@import "normalize-scss/normalize";
+
+/* CSS Spinners */
+// @import "css-spinners/sass/spinners";
+// @import "css-spinners/sass/spinner/wobblebar";
+// @import "css-spinners/sass/spinner/refreshing";
+
+
 /* Core
 ================================================== */
 
-@import "bower";
-@import "base";
-@import "layout";
-@import "media_queries";
+@import "partials/fonts";
+@import "partials/base";
+@import "partials/layout";
+@import "partials/media_queries";

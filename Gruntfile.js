@@ -35,8 +35,8 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= config.app %>/scripts/{,*/}*.js'],
-        tasks: ['jshint'],
+        files: ['<%= config.app %>/scripts/{,*/}{,*/}*.js'],
+        // tasks: ['jshint'],
         options: {
           livereload: true
         }
@@ -195,11 +195,11 @@ module.exports = function (grunt) {
       app: {
         ignorePath: /^\/|\.\.\//,
         src: ['<%= config.app %>/index.html']
-      },
-      sass: {
-        src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
-        ignorePath: /(\.\.\/){1,2}bower_components\//
       }
+      // , sass: {
+      //   src: ['<%= config.app %>/styles/{,*/}*.{scss,sass}'],
+      //   ignorePath: /(\.\.\/){1,2}bower_components\//
+      // }
     },
 
     // Renames files for browser caching purposes
@@ -399,6 +399,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
+    'jshint',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',

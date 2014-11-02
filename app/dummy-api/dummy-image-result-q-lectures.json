@@ -1,0 +1,242 @@
+{
+ "kind": "customsearch#search",
+ "url": {
+  "type": "application/json",
+  "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&cref={cref?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&relatedSite={relatedSite?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+ },
+ "queries": {
+  "nextPage": [
+   {
+    "title": "Google Custom Search - lectures",
+    "totalResults": "78800000",
+    "searchTerms": "lectures",
+    "count": 10,
+    "startIndex": 11,
+    "inputEncoding": "utf8",
+    "outputEncoding": "utf8",
+    "safe": "off",
+    "cx": "004417568209807888223:6slior__w8o",
+    "searchType": "image",
+    "imgSize": "small"
+   }
+  ],
+  "request": [
+   {
+    "title": "Google Custom Search - lectures",
+    "totalResults": "78800000",
+    "searchTerms": "lectures",
+    "count": 10,
+    "startIndex": 1,
+    "inputEncoding": "utf8",
+    "outputEncoding": "utf8",
+    "safe": "off",
+    "cx": "004417568209807888223:6slior__w8o",
+    "searchType": "image",
+    "imgSize": "small"
+   }
+  ]
+ },
+ "context": {
+  "title": "24i test"
+ },
+ "searchInformation": {
+  "searchTime": 0.276495,
+  "formattedSearchTime": "0.28",
+  "totalResults": "78800000",
+  "formattedTotalResults": "78,800,000"
+ },
+ "items": [
+  {
+   "kind": "customsearch#result",
+   "title": "UAH History Events: Phi Alpha Theta Fall Faculty Lecture Series",
+   "htmlTitle": "UAH History Events: Phi Alpha Theta Fall Faculty \u003cb\u003eLecture\u003c/b\u003e Series",
+   "link": "http://1.bp.blogspot.com/-ZidKprxxcr8/UHbfLPiIwDI/AAAAAAAAA6A/EmWX1-zP2WI/s400/lecture.jpg",
+   "displayLink": "uah-history-events.blogspot.com",
+   "snippet": "Faculty Lecture Series",
+   "htmlSnippet": "Faculty \u003cb\u003eLecture\u003c/b\u003e Series",
+   "mime": "image/jpeg",
+   "image": {
+    "contextLink": "http://uah-history-events.blogspot.com/2012/10/phi-alpha-theta-fall-faculty-lecture.html",
+    "height": 330,
+    "width": 345,
+    "byteSize": 9431,
+    "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRex3EaeLR_K91dGJJjXOsqHZNVyultvUh7wPHnZo7DG7rhYJjfpEdmStM",
+    "thumbnailHeight": 115,
+    "thumbnailWidth": 120
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "GEL AGENCY BLOG: PAY OUR DUES, SAY PART-TIME LECTURERS",
+   "htmlTitle": "GEL AGENCY BLOG: PAY OUR DUES, SAY PART-TIME LECTURERS",
+   "link": "http://3.bp.blogspot.com/-ukKiZ8GFuCk/UVvv0fWcF8I/AAAAAAAABjs/MCx81kUjBwY/s1600/1stlec.jpg",
+   "displayLink": "globallinktz.blogspot.com",
+   "snippet": "“I feel very bitter with the",
+   "htmlSnippet": "“I feel very bitter with the",
+   "mime": "image/jpeg",
+   "image": {
+    "contextLink": "http://globallinktz.blogspot.com/2013/04/pay-our-dues-say-part-time-lecturers.html",
+    "height": 658,
+    "width": 878,
+    "byteSize": 426094,
+    "thumbnailLink": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTzqLk1k7IQJiuooheWGSv0dNI7VH9yrb-0m3RwUH8N_5OdiegOALmEFqwi",
+    "thumbnailHeight": 109,
+    "thumbnailWidth": 146
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Good and Bad in the Teaching Report ~ Remaking the University",
+   "htmlTitle": "Good and Bad in the Teaching Report ~ Remaking the University",
+   "link": "http://1.bp.blogspot.com/-3V7ADeGE96M/UZIRbTKsu_I/AAAAAAAAB3g/S2t77TULf-E/s1600/large+lecture+hall.jpg",
+   "displayLink": "utotherescue.blogspot.com",
+   "snippet": "Good and Bad in the Teaching",
+   "htmlSnippet": "Good and Bad in the Teaching",
+   "mime": "image/jpeg",
+   "image": {
+    "contextLink": "http://utotherescue.blogspot.com/2013/05/good-and-bad-in-teaching-report.html",
+    "height": 333,
+    "width": 500,
+    "byteSize": 164380,
+    "thumbnailLink": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRS81VcXeIiP46EsXlQ_PKzalmd7DUYjuEYY47Ogkg65j67dMu5abdZot2U",
+    "thumbnailHeight": 87,
+    "thumbnailWidth": 130
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Thomond Archaeological and Historical Society: Programme 2012",
+   "htmlTitle": "Thomond Archaeological and Historical Society: Programme 2012",
+   "link": "http://2.bp.blogspot.com/-gnjslb2ShrY/T2TP06J6z8I/AAAAAAAABWI/D4uW-iUipfs/s1600/animated+gif+Teacher.gif",
+   "displayLink": "thomsoc.blogspot.com",
+   "snippet": "January Monday 23rd Lecture",
+   "htmlSnippet": "January Monday 23rd \u003cb\u003eLecture\u003c/b\u003e",
+   "mime": "image/gif",
+   "fileFormat": "Image Document",
+   "image": {
+    "contextLink": "http://thomsoc.blogspot.com/2012/01/more-changing-times.html",
+    "height": 329,
+    "width": 300,
+    "byteSize": 8202,
+    "thumbnailLink": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRHNWFEmulbwJmqfovHJBoRfkiCaKZlVUgRu_HbaDT48zUjIEyN9fAiCPk",
+    "thumbnailHeight": 119,
+    "thumbnailWidth": 109
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "A Cartoon Guide to Becoming a Doctor: Tips for lecturing to med ...",
+   "htmlTitle": "A Cartoon Guide to Becoming a Doctor: Tips for \u003cb\u003electuring\u003c/b\u003e to med \u003cb\u003e...\u003c/b\u003e",
+   "link": "http://1.bp.blogspot.com/-w7-FA5ch32c/TWr6chc-kXI/AAAAAAAAAsI/NVXGJcOGna0/s1600/lecture.jpg",
+   "displayLink": "doccartoon.blogspot.com",
+   "snippet": "lectures for med students,",
+   "htmlSnippet": "\u003cb\u003electures\u003c/b\u003e for med students,",
+   "mime": "image/jpeg",
+   "image": {
+    "contextLink": "http://doccartoon.blogspot.com/2011/03/tips-for-lecturing-to-med-students-and.html",
+    "height": 759,
+    "width": 710,
+    "byteSize": 126554,
+    "thumbnailLink": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQbUU5Tw5ENH-ppMG3NhPXgGOjFYlYmn9XMxDD4QIr2YaT-2FHWNLmqpVQD",
+    "thumbnailHeight": 142,
+    "thumbnailWidth": 133
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "The Way of Improvement Leads Home: The Benefits of a Classroom Lecture",
+   "htmlTitle": "The Way of Improvement Leads Home: The Benefits of a Classroom \u003cb\u003eLecture\u003c/b\u003e",
+   "link": "http://4.bp.blogspot.com/-mPWishf7nG4/TgOzD2iSnOI/AAAAAAAADBk/DniiWCIQUuQ/s1600/Lectures.jpg",
+   "displayLink": "www.philipvickersfithian.com",
+   "snippet": "not learn from lectures.",
+   "htmlSnippet": "not learn from \u003cb\u003electures\u003c/b\u003e.",
+   "mime": "image/jpeg",
+   "image": {
+    "contextLink": "http://www.philipvickersfithian.com/2011/06/benefits-of-classroom-lecture.html",
+    "height": 330,
+    "width": 345,
+    "byteSize": 9529,
+    "thumbnailLink": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS9ZMeWRSdgnASTbbLGFf-hFgSd5gEohFf1bsxDnipr5VgYp8lR9rUn06c",
+    "thumbnailHeight": 115,
+    "thumbnailWidth": 120
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "MDaware.org: Skip lecture.",
+   "htmlTitle": "MDaware.org: Skip \u003cb\u003electure\u003c/b\u003e.",
+   "link": "http://2.bp.blogspot.com/-xrdQzmaOK_E/TdwURTQ7SOI/AAAAAAAABSw/hYODGWoPm40/s1600/Empty-Lecture-Hall-MCT.jpg",
+   "displayLink": "mdaware.blogspot.com",
+   "snippet": "Skip lecture.",
+   "htmlSnippet": "Skip \u003cb\u003electure\u003c/b\u003e.",
+   "mime": "image/jpeg",
+   "image": {
+    "contextLink": "http://mdaware.blogspot.com/2011/05/skip-lecture.html",
+    "height": 971,
+    "width": 1600,
+    "byteSize": 263910,
+    "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1l_nZFwKVVKdig_uxKWnrRlSaqcpveVWJKnW0v-fcNXQvCB0phqfPwy8",
+    "thumbnailHeight": 91,
+    "thumbnailWidth": 150
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Chez Homer: De l'apprentissage de la lecture",
+   "htmlTitle": "Chez Homer: De l&#39;apprentissage de la \u003cb\u003electure\u003c/b\u003e",
+   "link": "http://1.bp.blogspot.com/-NFkNnQML2D0/ThSqKy8jUhI/AAAAAAAACi4/l2WViGWIuCA/s1600/lecture.gif",
+   "displayLink": "lechemindurayon.blogspot.com",
+   "snippet": "de la lecture",
+   "htmlSnippet": "de la \u003cb\u003electure\u003c/b\u003e",
+   "mime": "image/gif",
+   "fileFormat": "Image Document",
+   "image": {
+    "contextLink": "http://lechemindurayon.blogspot.com/2011/07/de-lapprentissage-de-la-lecture.html",
+    "height": 375,
+    "width": 450,
+    "byteSize": 58418,
+    "thumbnailLink": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTNb1ncDDj9PntGnF8AlIULUN2cNVe6O9ySBdsyu4lK-yMezTT4Sqo8Yms",
+    "thumbnailHeight": 106,
+    "thumbnailWidth": 127
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "51SrCHuwNZL._SL500_PIsitb- ...",
+   "htmlTitle": "51SrCHuwNZL._SL500_PIsitb- ...",
+   "link": "http://ecx.images-amazon.com/images/I/51SrCHuwNZL._SL500_PIsitb-sticker-arrow-big,TopRight,35,-73_OU01_SS100_.jpg",
+   "displayLink": "www.amazon.com",
+   "snippet": "What's The Use of Lectures?",
+   "htmlSnippet": "What&#39;s The Use of \u003cb\u003eLectures\u003c/b\u003e?",
+   "mime": "image/jpeg",
+   "image": {
+    "contextLink": "http://www.amazon.com/Whats-The-Lectures-Donald-Bligh/dp/0787951625",
+    "height": 100,
+    "width": 100,
+    "byteSize": 4021,
+    "thumbnailLink": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQvMKU-zh-GM8leCfwc8oYVLy2OQDeyt8UiqXlodqG1MyYUf41CJvKSTIU",
+    "thumbnailHeight": 82,
+    "thumbnailWidth": 82
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Wayne Visser: Leeds MBA Lecture on Sustainable Business",
+   "htmlTitle": "Wayne Visser: Leeds MBA \u003cb\u003eLecture\u003c/b\u003e on Sustainable Business",
+   "link": "http://1.bp.blogspot.com/_s7ieoKv011w/Sw8Gq4YgYtI/AAAAAAAAAT4/XWcOWhvfEqE/s1600/Sustaianble+Business+Lecture+5.JPG",
+   "displayLink": "waynevisser.blogspot.com",
+   "snippet": "Leeds MBA Lecture on",
+   "htmlSnippet": "Leeds MBA \u003cb\u003eLecture\u003c/b\u003e on",
+   "mime": "image/jpeg",
+   "image": {
+    "contextLink": "http://waynevisser.blogspot.com/2009/11/leeds-mba-lecture-on-sustainable.html",
+    "height": 1200,
+    "width": 1600,
+    "byteSize": 103854,
+    "thumbnailLink": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzU-Q-sZVL-TXmZo-D8MZIXDXH8CuSf59csZVN8mtCMRxwVIed97QovPxX",
+    "thumbnailHeight": 113,
+    "thumbnailWidth": 150
+   }
+  }
+ ]
+}

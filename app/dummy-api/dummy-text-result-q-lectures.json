@@ -1,0 +1,365 @@
+{
+ "kind": "customsearch#search",
+ "url": {
+  "type": "application/json",
+  "template": "https://www.googleapis.com/customsearch/v1?q={searchTerms}&num={count?}&start={startIndex?}&lr={language?}&safe={safe?}&cx={cx?}&cref={cref?}&sort={sort?}&filter={filter?}&gl={gl?}&cr={cr?}&googlehost={googleHost?}&c2coff={disableCnTwTranslation?}&hq={hq?}&hl={hl?}&siteSearch={siteSearch?}&siteSearchFilter={siteSearchFilter?}&exactTerms={exactTerms?}&excludeTerms={excludeTerms?}&linkSite={linkSite?}&orTerms={orTerms?}&relatedSite={relatedSite?}&dateRestrict={dateRestrict?}&lowRange={lowRange?}&highRange={highRange?}&searchType={searchType}&fileType={fileType?}&rights={rights?}&imgSize={imgSize?}&imgType={imgType?}&imgColorType={imgColorType?}&imgDominantColor={imgDominantColor?}&alt=json"
+ },
+ "queries": {
+  "nextPage": [
+   {
+    "title": "Google Custom Search - lectures",
+    "totalResults": "1750000",
+    "searchTerms": "lectures",
+    "count": 10,
+    "startIndex": 11,
+    "inputEncoding": "utf8",
+    "outputEncoding": "utf8",
+    "safe": "off",
+    "cx": "004417568209807888223:6slior__w8o"
+   }
+  ],
+  "request": [
+   {
+    "title": "Google Custom Search - lectures",
+    "totalResults": "1750000",
+    "searchTerms": "lectures",
+    "count": 10,
+    "startIndex": 1,
+    "inputEncoding": "utf8",
+    "outputEncoding": "utf8",
+    "safe": "off",
+    "cx": "004417568209807888223:6slior__w8o"
+   }
+  ]
+ },
+ "context": {
+  "title": "24i test"
+ },
+ "searchInformation": {
+  "searchTime": 0.253474,
+  "formattedSearchTime": "0.25",
+  "totalResults": "1750000",
+  "formattedTotalResults": "1,750,000"
+ },
+ "items": [
+  {
+   "kind": "customsearch#result",
+   "title": "Lecture - Wikipedia, the free encyclopedia",
+   "htmlTitle": "\u003cb\u003eLecture\u003c/b\u003e - Wikipedia, the free encyclopedia",
+   "link": "http://en.wikipedia.org/wiki/Lecture",
+   "displayLink": "en.wikipedia.org",
+   "snippet": "A lecture (from the French 'lecture', meaning 'reading' [process]) is an oral \npresentation intended to present information or teach people about a particular ...",
+   "htmlSnippet": "A \u003cb\u003electure\u003c/b\u003e (from the French &#39;\u003cb\u003electure\u003c/b\u003e&#39;, meaning &#39;reading&#39; [process]) is an oral \u003cbr\u003e\npresentation intended to present information or teach people about a particular&nbsp;...",
+   "cacheId": "iD5ojBV7IpUJ",
+   "formattedUrl": "en.wikipedia.org/wiki/Lecture",
+   "htmlFormattedUrl": "en.wikipedia.org/wiki/\u003cb\u003eLecture\u003c/b\u003e",
+   "pagemap": {
+    "cse_image": [
+     {
+      "src": "http://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Math_lecture_at_TKK.JPG/220px-Math_lecture_at_TKK.JPG"
+     }
+    ],
+    "cse_thumbnail": [
+     {
+      "width": "176",
+      "height": "132",
+      "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ3TcIQDz6b9ge3MsDXDa_DYCyAfJnycX3tziL8GxJ-CmQTenjnP6Eavhg"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Video Lectures",
+   "htmlTitle": "Video \u003cb\u003eLectures\u003c/b\u003e",
+   "link": "http://www.reddit.com/r/lectures",
+   "displayLink": "www.reddit.com",
+   "snippet": "2 days ago ... lectures. subscribeunsubscribe40,792 readers. ~15 users here now ... [meta] Can \nwe get an rss feed to r/lectures? (self.lectures). submitted 2 ...",
+   "htmlSnippet": "2 days ago \u003cb\u003e...\u003c/b\u003e \u003cb\u003electures\u003c/b\u003e. subscribeunsubscribe40,792 readers. ~15 users here now ... [meta] Can \u003cbr\u003e\nwe get an rss feed to r/\u003cb\u003electures\u003c/b\u003e? (self.\u003cb\u003electures\u003c/b\u003e). submitted 2&nbsp;...",
+   "cacheId": "T0imStKJeeYJ",
+   "formattedUrl": "www.reddit.com/r/lectures",
+   "htmlFormattedUrl": "www.reddit.com/r/\u003cb\u003electures\u003c/b\u003e",
+   "pagemap": {
+    "cse_image": [
+     {
+      "src": "http://b.thumbs.redditmedia.com/BSQm2Tg7nuqAOa-1hZmzbpCWu53-AStJlfvOspoR4Cg.jpg"
+     }
+    ],
+    "cse_thumbnail": [
+     {
+      "width": "112",
+      "height": "84",
+      "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR3F7fWW3cCCG3DydhlVv3H3RPC8LeWAg2BlS9MBDoGNKXE95lHCLHb"
+     }
+    ],
+    "metatags": [
+     {
+      "referrer": "always",
+      "viewport": "width=1024",
+      "og:image": "//www.redditstatic.com/icon.png",
+      "og:site_name": "reddit",
+      "og:description": "This subreddit is all about video lectures, talks and interesting public speeches. The topics include mathematics, physics, computer science,...",
+      "og:title": "Video Lectures • /r/lectures",
+      "twitter:site": "reddit",
+      "twitter:card": "summary",
+      "twitter:title": "Video Lectures • /r/lectures"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Lectures Aren't Just Boring, They're Ineffective, Too, Study Finds ...",
+   "htmlTitle": "\u003cb\u003eLectures\u003c/b\u003e Aren&#39;t Just Boring, They&#39;re Ineffective, Too, Study Finds \u003cb\u003e...\u003c/b\u003e",
+   "link": "http://news.sciencemag.org/education/2014/05/lectures-arent-just-boring-theyre-ineffective-too-study-finds",
+   "displayLink": "news.sciencemag.org",
+   "snippet": "May 12, 2014 ... Blah? Traditional lecture classes have higher undergraduate failure rates than \nthose using active learning techniques, new research finds.",
+   "htmlSnippet": "May 12, 2014 \u003cb\u003e...\u003c/b\u003e Blah? Traditional \u003cb\u003electure\u003c/b\u003e classes have higher undergraduate failure rates than \u003cbr\u003e\nthose using active learning techniques, new research finds.",
+   "formattedUrl": "news.sciencemag.org/.../lectures-arent-just-boring-theyre-ineffective-too- study-finds",
+   "htmlFormattedUrl": "news.sciencemag.org/.../\u003cb\u003electures\u003c/b\u003e-arent-just-boring-theyre-ineffective-too- study-finds",
+   "pagemap": {
+    "cse_image": [
+     {
+      "src": "http://news.sciencemag.org/sites/default/files/Lecture-RIT.jpg"
+     }
+    ],
+    "cse_thumbnail": [
+     {
+      "width": "275",
+      "height": "183",
+      "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcR8a9jxx7pMnEkY4aumnchUDAUf7DTPN5gK26RtA9okuPqqSa-M2hyS4NY4"
+     }
+    ],
+    "metatags": [
+     {
+      "abstract": "\"Active learning\" boosts grades, reduces failure rates in undergraduate STEM classes, concludes major review",
+      "news_keywords": "biology, neuroscience, physics, science policy, energy, astronomy, NSA, NASA, NIH, NSF",
+      "og:type": "article",
+      "og:title": "Lectures Aren't Just Boring, They're Ineffective, Too, Study Finds",
+      "og:description": "\"Active learning\" boosts grades, reduces failure rates in undergraduate STEM classes, concludes major review",
+      "og:image": "http://news.sciencemag.org/sites/default/files/Lecture-RIT.jpg",
+      "twitter:card": "summary",
+      "twitter:site": "@sciencenews",
+      "twitter:creator": "@sciencenews",
+      "twitter:url": "http://news.sciencemag.org/education/2014/05/lectures-arent-just-boring-theyre-ineffective-too-study-finds",
+      "twitter:description": "\"Active learning\" boosts grades, reduces failure rates in undergraduate STEM classes, concludes major review",
+      "twitter:title": "Science/AAAS | News",
+      "dcterms.title": "Lectures Aren't Just Boring, They're Ineffective, Too, Study Finds",
+      "dcterms.type": "Text",
+      "dcterms.format": "text/html",
+      "msapplication-tilecolor": "#e13a3e",
+      "msapplication-tileimage": "/sites/all/themes/news_interim/img/mstile-144x144.png",
+      "viewport": "width=device-width"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Seattle Arts & Lectures",
+   "htmlTitle": "Seattle Arts &amp; \u003cb\u003eLectures\u003c/b\u003e",
+   "link": "http://www.lectures.org/",
+   "displayLink": "www.lectures.org",
+   "snippet": "Describes literary organization, with program and schedule details, author \narchive, and calendar of events.",
+   "htmlSnippet": "Describes literary organization, with program and schedule details, author \u003cbr\u003e\narchive, and calendar of events.",
+   "cacheId": "Sqe0TV7hJ4wJ",
+   "formattedUrl": "www.lectures.org/",
+   "htmlFormattedUrl": "www.\u003cb\u003electures\u003c/b\u003e.org/",
+   "pagemap": {
+    "cse_image": [
+     {
+      "src": "http://www.lectures.org/files/uploads/8_photo_20141022164155_1/In-Focus-Harvey.jpg"
+     }
+    ],
+    "cse_thumbnail": [
+     {
+      "width": "261",
+      "height": "136",
+      "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSQHnDYYsd5RP9UnvzD8LxSYkJpNPriF5FxO91mQgWw8Iusr_5zrAdLIknp"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Lecture | Define Lecture at Dictionary.com",
+   "htmlTitle": "\u003cb\u003eLecture\u003c/b\u003e | Define \u003cb\u003eLecture\u003c/b\u003e at Dictionary.com",
+   "link": "http://dictionary.reference.com/browse/lecture",
+   "displayLink": "dictionary.reference.com",
+   "snippet": "a speech read or delivered before an audience or class, especially for instruction \nor to set forth some subject: a lecture on Picasso's paintings. 2. a speech of ...",
+   "htmlSnippet": "a speech read or delivered before an audience or class, especially for instruction \u003cbr\u003e\nor to set forth some subject: a \u003cb\u003electure\u003c/b\u003e on Picasso&#39;s paintings. 2. a speech of&nbsp;...",
+   "cacheId": "Ac33ecA5n60J",
+   "formattedUrl": "dictionary.reference.com/browse/lecture",
+   "htmlFormattedUrl": "dictionary.reference.com/browse/\u003cb\u003electure\u003c/b\u003e",
+   "pagemap": {
+    "cse_image": [
+     {
+      "src": "http://static.sfdict.com/dictcloud/r201410221121/img/social_logo.png"
+     }
+    ],
+    "metatags": [
+     {
+      "fb:admins": "100000304287730;109125464873",
+      "og:site_name": "Dictionary.com",
+      "og:image": "http://static.sfdict.com/dictcloud/r201410221121/img/social_logo.png",
+      "fb:app_id": "127444090629600",
+      "msvalidate.01": "DF5542D7723770377E9ABFF59AC1DC97",
+      "viewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no",
+      "og:title": "the definition of lecture",
+      "og:url": "http://dictionary.reference.com/browse/lecture"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "The DO Lectures",
+   "htmlTitle": "The DO \u003cb\u003eLectures\u003c/b\u003e",
+   "link": "http://www.thedolectures.com/",
+   "displayLink": "www.thedolectures.com",
+   "snippet": "Inspirational talks from passionate, creative people. The idea is a simple one. \nThat people who Do things, can inspire the rest of us to go and Do things too.",
+   "htmlSnippet": "Inspirational talks from passionate, creative people. The idea is a simple one. \u003cbr\u003e\nThat people who Do things, can inspire the rest of us to go and Do things too.",
+   "cacheId": "toWljr4JnmoJ",
+   "formattedUrl": "www.thedolectures.com/",
+   "htmlFormattedUrl": "www.thedo\u003cb\u003electures\u003c/b\u003e.com/",
+   "pagemap": {
+    "cse_image": [
+     {
+      "src": "http://static.squarespace.com/static/534e83bae4b04f021db095fb/5387f134e4b0bd6d137442f7/543d22f8e4b0d1065cacc1c0/1413292792597/"
+     }
+    ],
+    "cse_thumbnail": [
+     {
+      "width": "225",
+      "height": "225",
+      "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRKjzopzZjMI6FuDrOHpRJJAQsLw1B0Xp-BEndtbATwu8416GljUeP9sOY"
+     }
+    ],
+    "metatags": [
+     {
+      "viewport": "width=device-width,initial-scale=1",
+      "og:site_name": "The DO Lectures",
+      "og:title": "Home",
+      "og:url": "http://www.thedolectures.com/",
+      "og:type": "website",
+      "og:image": "http://static.squarespace.com/static/534e83bae4b04f021db095fb/t/53f39428e4b0a96e318fd9c5/1414681780355/?format=1000w"
+     }
+    ],
+    "thing": [
+     {
+      "name": "Home",
+      "url": "http://www.thedolectures.com/",
+      "thumbnailurl": "http://static.squarespace.com/static/534e83bae4b04f021db095fb/t/53f39428e4b0a96e318fd9c5/1414681780355/?format=1000w",
+      "image": "http://static.squarespace.com/static/534e83bae4b04f021db095fb/t/53f39428e4b0a96e318fd9c5/1414681780355/?format=1000w"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "VideoLectures.NET - VideoLectures.NET",
+   "htmlTitle": "VideoLectures.NET - VideoLectures.NET",
+   "link": "http://videolectures.net/",
+   "displayLink": "videolectures.net",
+   "snippet": "932 events, 12641 authors, 16845 lectures, 19608 videos ... All you need to do is \nchoose one of the talks from the \"lectures with transcriptions\" list or simply ...",
+   "htmlSnippet": "932 events, 12641 authors, 16845 \u003cb\u003electures\u003c/b\u003e, 19608 videos ... All you need to do is \u003cbr\u003e\nchoose one of the talks from the &quot;\u003cb\u003electures\u003c/b\u003e with transcriptions&quot; list or simply&nbsp;...",
+   "cacheId": "5e5vnNiLMk8J",
+   "formattedUrl": "videolectures.net/",
+   "htmlFormattedUrl": "video\u003cb\u003electures\u003c/b\u003e.net/",
+   "pagemap": {
+    "metatags": [
+     {
+      "viewport": "width=device-width, initial-scale=1.0"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Freakonomics » Levitt & Dubner Lectures",
+   "htmlTitle": "Freakonomics » Levitt &amp; Dubner \u003cb\u003eLectures\u003c/b\u003e",
+   "link": "http://freakonomics.com/lectures/",
+   "displayLink": "freakonomics.com",
+   "snippet": "In a lecture, Levitt and Dubner bring all this material to life. They are as \nentertaining as they are illuminating, using humor and first-rate storytelling to \ndiscuss the ...",
+   "htmlSnippet": "In a \u003cb\u003electure\u003c/b\u003e, Levitt and Dubner bring all this material to life. They are as \u003cbr\u003e\nentertaining as they are illuminating, using humor and first-rate storytelling to \u003cbr\u003e\ndiscuss the&nbsp;...",
+   "cacheId": "qfk8CShVHgoJ",
+   "formattedUrl": "freakonomics.com/lectures/",
+   "htmlFormattedUrl": "freakonomics.com/\u003cb\u003electures\u003c/b\u003e/",
+   "pagemap": {
+    "cse_image": [
+     {
+      "src": "http://www.freakonomics.com/images/lectures-billboard.jpg"
+     }
+    ],
+    "cse_thumbnail": [
+     {
+      "width": "305",
+      "height": "165",
+      "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQEoxz4kalWkiSr7mYmD6G2_btpxfvVWsmp3FJ9FEF8OCqpxT5mpEnyP1c"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Lectures - Stephen Hawking",
+   "htmlTitle": "\u003cb\u003eLectures\u003c/b\u003e - Stephen Hawking",
+   "link": "http://www.hawking.org.uk/lectures.html",
+   "displayLink": "www.hawking.org.uk",
+   "snippet": "Professor Hawking has given many lectures to the general public. Below are \nsome of the more recent public lectures. Included with these lectures is a \nGlossary ...",
+   "htmlSnippet": "Professor Hawking has given many \u003cb\u003electures\u003c/b\u003e to the general public. Below are \u003cbr\u003e\nsome of the more recent public \u003cb\u003electures\u003c/b\u003e. Included with these \u003cb\u003electures\u003c/b\u003e is a \u003cbr\u003e\nGlossary&nbsp;...",
+   "cacheId": "M13HB23zJcsJ",
+   "formattedUrl": "www.hawking.org.uk/lectures.html",
+   "htmlFormattedUrl": "www.hawking.org.uk/\u003cb\u003electures\u003c/b\u003e.html",
+   "pagemap": {
+    "cse_image": [
+     {
+      "src": "http://www.hawking.org.uk/uploads/8/3/0/0/8300824/5584221.jpg"
+     }
+    ],
+    "cse_thumbnail": [
+     {
+      "width": "193",
+      "height": "262",
+      "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR5k1r0tcg6BxE5kBurTYXI0b6PWH-HgqXiqpIe5XlY_gRAO64uVs59Cqo"
+     }
+    ]
+   }
+  },
+  {
+   "kind": "customsearch#result",
+   "title": "Lectures | red bull music academy",
+   "htmlTitle": "\u003cb\u003eLectures\u003c/b\u003e | red bull music academy",
+   "link": "http://www.redbullmusicacademy.com/lectures",
+   "displayLink": "www.redbullmusicacademy.com",
+   "snippet": "Show more lectures. © 2013 Red Bull; Imprint · Sitemap · Worldwide Contacts · \nSubscribe to our Newsletter · Red Bull · Red Bull Music Academy Radio ...",
+   "htmlSnippet": "Show more \u003cb\u003electures\u003c/b\u003e. © 2013 Red Bull; Imprint &middot; Sitemap &middot; Worldwide Contacts &middot; \u003cbr\u003e\nSubscribe to our Newsletter &middot; Red Bull &middot; Red Bull Music Academy Radio&nbsp;...",
+   "cacheId": "iuOrDnJEajIJ",
+   "formattedUrl": "www.redbullmusicacademy.com/lectures",
+   "htmlFormattedUrl": "www.redbullmusicacademy.com/\u003cb\u003electures\u003c/b\u003e",
+   "pagemap": {
+    "cse_image": [
+     {
+      "src": "http://image.redbull.com/rbma/0001/0/1000/469/601/558/814/moodyman-lecture-teaser-213.jpg"
+     }
+    ],
+    "cse_thumbnail": [
+     {
+      "width": "328",
+      "height": "154",
+      "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcQyIawOK4K87-KQ2W28EIF38LSBlGbruOToj5K1C3Ad6fpf01RCeXWm_lWC"
+     }
+    ],
+    "metatags": [
+     {
+      "viewport": "width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1",
+      "wt.sp": "int",
+      "wt.z_region": "northeurope",
+      "wt.z_micro": "redbullmusicacademy.com",
+      "wt.z_lang": "en"
+     }
+    ]
+   }
+  }
+ ]
+}
