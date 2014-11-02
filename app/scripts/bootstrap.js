@@ -34,7 +34,7 @@ requirejs.config({
         new SingleAppPage({
           'container': '#app',
           'main': '#site-view',
-          'regions': ['header', 'footer', '#main']
+          'regions': ['header', 'footer', 'main']
         });
       };
 

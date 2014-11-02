@@ -362,11 +362,13 @@
         // If more than one element
         if (newClasses.length > 1) {
 
+          var that = this;
+
           // Append the new classes
           newClasses.forEach(function(className){
 
             // Append the new class
-            this.el.classList.add(className);
+            that.el.classList.add(className);
           });
 
           return;
@@ -466,6 +468,9 @@
 
         // Set the object element
         this.el = element;
+
+        // Memorize context
+        this.context = element;
 
         // Set the ID
         if ('id' in options) { this.attr('id', options.id); }

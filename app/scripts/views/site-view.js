@@ -10,6 +10,7 @@
 
     var SiteView = new View({
       'id': 'site-view',
+      'container': '#app',
       'template': Template
     });
 

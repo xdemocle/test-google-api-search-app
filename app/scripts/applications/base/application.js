@@ -36,8 +36,6 @@
             fileName = that.main.replace('#',''),
             filepath = 'views/'+fileName;
 
-            console.log(wrapper)
-
         // Check if container not exist
         if (wrapper.length <= 0) {
 
@@ -49,12 +47,26 @@
         }
 
         // Load main view for base layout
-        require([filepath], function(MainView) {
+        require([filepath]);
 
-          // Append the site view rendered
-          $(that.container).append(MainView.el);
+        // Create other views for regions
+        this.makeRegions();
+      },
+
+      makeRegions: function() {
+
+        this.regions.forEach(function(region, index, regions){
+
+          // Local vars
+          var id = '#'+region,
+              wrapper = $(id),
+              filepath = 'views/' + region + '-view';
+
+          // Load main view for base layout
+          require([filepath]);
         });
       }
+
     };
 
     return Application;
