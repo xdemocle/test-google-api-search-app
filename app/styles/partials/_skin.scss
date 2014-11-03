@@ -27,9 +27,11 @@
   background-color: #ffffff;
   border-color: #e8e7e7;
   color: #7f7f7f;
+  transition: .1s linear all;
 
   input {
     color: #7f7f7f;
+    background-color: transparent;
 
     &[type="submit"], &[type="button"], &.btn {
       background-color: #c0c0c0;
@@ -49,6 +51,11 @@
       }
     }
   }
+
+  &.error {
+    background-color: #fff;
+    border-color: rgba(204, 51, 0, .5);
+  }
 }
 
 .boxes {
@@ -61,4 +68,8 @@
 
 h2 {
   color: #7f7f7f;
+}
+
+.error {
+  background-color: rgba(204, 51, 0, .3);
 }

@@ -27,6 +27,8 @@
       this.subviews = [];
       this.subviewsByName = {};
 
+
+
       // Autorun
       this.initialize(options);
     }
@@ -141,21 +143,24 @@
 
           // Add the listener on specific element
           element.addEventListener(evt, callback);
-        }
+        };
 
-        // Event delegation on body clicks
-        document.querySelector('body').addEventListener('click', function(event) {
+        var eventDelegation = function(event) {
 
           var tagName = event.target.tagName.toLowerCase(),
               type = event.target.type,
               form = event.target.form;
 
-          console.log(event, tagName, type, form);
+          // console.log(event, tagName, type, form);
 
           if (evt === 'submit' && form && type === 'submit') {
             on(evt, form, callback);
           }
-        }, true);
+        };
+
+        // Event delegation on body clicks
+        document.querySelector('body').addEventListener('keydown', eventDelegation);
+        document.querySelector('body').addEventListener('click', eventDelegation);
       }
     };
 

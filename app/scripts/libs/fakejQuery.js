@@ -128,8 +128,18 @@
         var type = String(selector).slice(0, 1),
             target = String(selector).slice(1, selector.length);
 
-        // Define if the selector is a class or id or a complex select
-        if (selector.split(' ').length > 1) {
+        // Define if the selector is a class or id or a complex
+        // select or an object
+        if (typeof selector === 'object' &&
+          Object.getPrototypeOf(selector).constructor.name === 'HTMLDivElement') {
+
+          // Set needle
+          needle = selector;
+
+          // And add to elements array list
+          elements.push(needle);
+
+        } else if (selector.split(' ').length > 1) {
 
           elements = context.querySelectorAll(selector);
 
