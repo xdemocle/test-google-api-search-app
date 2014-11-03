@@ -9,8 +9,18 @@
 
     var HeaderView = new View({
       'id': 'header-view',
+      'classes': 'header-container',
       'container': '#header',
       'template': Template
+    });
+
+    // Listen to submit
+    HeaderView.listenTo('submit', '#search', function(evt){
+
+      evt.preventDefault();
+
+      console.log(arguments);
+
     });
 
     return HeaderView;

@@ -94,10 +94,16 @@
 
       render: function() {
 
+        var that = this;
+
         // console.log("this.id", this.id, this.container, this.el);
 
         // Append the site view rendered
-        $(this.container).append(this.el);
+        setTimeout(function(){
+
+          $(that.container).append(that.el);
+
+        }, 1);
 
         return this;
       },
@@ -108,7 +114,7 @@
         if (options) {
 
           // Set the proper container taken from the parent view
-          options.container = this.container;
+          options.container = '#'+this.id;
 
           // Initiate the new View
           var view = new View(options);
@@ -126,6 +132,30 @@
         } else if (name) {
           return byName[name];
         }
+      },
+
+      listenTo: function(evt, element, callback) {
+
+        // Local function to listen on delegated event
+        var on = function(evt, element, callback) {
+
+          // Add the listener on specific element
+          element.addEventListener(evt, callback);
+        }
+
+        // Event delegation on body clicks
+        document.querySelector('body').addEventListener('click', function(event) {
+
+          var tagName = event.target.tagName.toLowerCase(),
+              type = event.target.type,
+              form = event.target.form;
+
+          console.log(event, tagName, type, form);
+
+          if (evt === 'submit' && form && type === 'submit') {
+            on(evt, form, callback);
+          }
+        }, true);
       }
     };
 

@@ -26,6 +26,7 @@
 
       initialize: function(options) {
 
+        // Auto-init the layout of the app
         this.layout();
       },
 
@@ -37,7 +38,7 @@
             filepath = 'views/'+fileName;
 
         // Check if container not exist
-        if (wrapper.length <= 0) {
+        if (wrapper.length < 1) {
 
           // Make a container onfly
           wrapper = $('div', {'id':'app','class':'app'});
@@ -47,13 +48,18 @@
         }
 
         // Load main view for base layout
-        require([filepath]);
+        require([filepath], function(){
 
-        // Create other views for regions
-        this.makeRegions();
+          // Create other views for regions
+          that.makeRegions();
+        });
       },
 
-      makeRegions: function() {
+      makeRegions: function(callback) {
+
+        var that = this,
+            total = this.regions.length,
+            last = total-1;
 
         this.regions.forEach(function(region, index, regions){
 
@@ -63,9 +69,37 @@
               filepath = 'views/' + region + '-view';
 
           // Load main view for base layout
-          require([filepath]);
+          require([filepath], function() {
+
+            // Do stuff in the end of regions making
+            if (last === index) {
+
+              // Run the end method
+              setTimeout(function(){
+                that.end();
+              }, 0);
+            }
+          });
         });
-      }
+      },
+
+      end: function(argument) {
+
+        // Hide loader if exist
+        this.hideLoader();
+      },
+
+      hideLoader: function(argument) {
+
+        // Hide loader
+        $('#loader').hide();
+      },
+
+      showLoader: function(argument) {
+
+        // Show loader
+        $('#loader').show();
+      },
 
     };
 

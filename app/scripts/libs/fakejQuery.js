@@ -430,6 +430,23 @@
         this.el.classList.toggle(classes[0]);
       },
 
+      show: function() {
+
+        this.el.style.display = 'block';
+        this.attr('style', 'transition: .2s linear all; opacity: 1;');
+      },
+
+      hide: function() {
+
+        var that = this;
+
+        this.attr('style', 'transition: .2s linear all; opacity: 0;');
+
+        setTimeout(function() {
+          that.el.style.display = 'none';
+        }, 300);
+      },
+
       text: function(text) {
 
         // If this.el is empty, block execution

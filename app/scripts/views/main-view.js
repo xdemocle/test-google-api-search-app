@@ -11,7 +11,7 @@
     var MainView = new View({
       'id': 'main-view',
       'container': '#main',
-      'classes': 'box-container'
+      'classes': 'main-container boxes'
     });
 
     // Add new subview

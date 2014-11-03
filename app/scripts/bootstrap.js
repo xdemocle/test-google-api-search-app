@@ -1,4 +1,7 @@
 /*global window, requirejs */
+/**
+ * Bootstrap file
+ */
 
 // Configure loading modules from the lib directory, except for 'app' ones,
 // which are in a sibling directory.
@@ -17,8 +20,6 @@ requirejs.config({
   // Set a public element to reuse in the app as flag for PhoneGap/Cordova app
   // recognition
   window.isPhonegap = false;
-
-  var document = window.document;
 
   // Starting the app when the DOM is ready/loaded
   document.addEventListener('DOMContentLoaded', function() {

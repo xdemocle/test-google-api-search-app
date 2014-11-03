@@ -14,21 +14,49 @@
 }
 
 /* #### Mobile Phones Portrait or Landscape #### */
-@media screen and (max-device-width: 640px){
-  /* some CSS here */
+@media screen and (max-device-width: 768px), screen and (max-width: 768px) {
+
+  .boxes .box {
+    display: inline-block;
+  }
+
+  .w100, .w90, .w80, .w70, .w60, .w50, .w40, .w30, .w20, .w10 {
+    width: 100%;
+  }
 }
 
-/* #### iPhone 4+ Portrait or Landscape #### */
-@media screen and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2){
-  /* some CSS here */
-}
+/* #### Desktops #### */
+@media screen and (min-width: 768px){
 
-/* #### Tablets Portrait or Landscape #### */
-@media screen and (min-device-width: 768px) and (max-device-width: 1024px){
-  /* some CSS here */
+  html {
+    font-size: 20px;
+  }
+
+  .main-container {
+    margin: 1rem 0 0;
+  }
+
+  .input-groups {
+
+    .input {
+
+      &:last-child {
+        margin-left: 2%;
+        width: 18%;
+      }
+    }
+  }
 }
 
 /* #### Desktops #### */
 @media screen and (min-width: 1024px){
-  /* some CSS here */
+
+  html {
+    font-size: 22px;
+  }
+
+  .app .wrapper {
+    margin: 0 auto;
+    width: 1024px;
+  }
 }

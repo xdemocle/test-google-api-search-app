@@ -9,6 +9,7 @@
 
     var FooterView = new View({
       'id': 'footer-view',
+      'classes': 'footer-container',
       'container': '#footer',
       'template': Template
     });

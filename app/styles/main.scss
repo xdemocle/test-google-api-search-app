@@ -19,11 +19,6 @@
 /* Normalize */
 @import "normalize-scss/normalize";
 
-/* CSS Spinners */
-// @import "css-spinners/sass/spinners";
-// @import "css-spinners/sass/spinner/wobblebar";
-// @import "css-spinners/sass/spinner/refreshing";
-
 
 /* Core
 ================================================== */
@@ -31,4 +26,6 @@
 @import "partials/fonts";
 @import "partials/base";
 @import "partials/layout";
+@import "partials/skin";
+@import "partials/phonegap";
 @import "partials/media_queries";

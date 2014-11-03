@@ -1,3 +1,41 @@
-/*
+/**
  * Layout file
  */
+
+.app {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: 5;
+
+  .wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 2rem 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 6;
+  }
+}
+
+.header-container {
+  margin: 1rem 1rem 0;
+}
+
+.main-container {
+  // margin: .5rem 0 0;
+}
+
+.footer-container {
+
+}

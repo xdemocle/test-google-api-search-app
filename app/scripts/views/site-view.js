@@ -11,6 +11,7 @@
     var SiteView = new View({
       'id': 'site-view',
       'container': '#app',
+      'classes': 'wrapper',
       'template': Template
     });
 

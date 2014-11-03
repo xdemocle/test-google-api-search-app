@@ -1,0 +1,64 @@
+/**
+ * Skin file
+ */
+
+.app {
+  background: #dbe4f4; /* Old browsers */
+  background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#dbe4f4), color-stop(55%,#ffffff)); /* Chrome,Safari4+ */
+
+  .wrapper {
+
+  }
+}
+
+.header-container {
+
+}
+
+.main-container {
+
+}
+
+.footer-container {
+
+}
+
+.input {
+  background-color: #ffffff;
+  border-color: #e8e7e7;
+  color: #7f7f7f;
+
+  input {
+    color: #7f7f7f;
+
+    &[type="submit"], &[type="button"], &.btn {
+      background-color: #c0c0c0;
+      color: #ffffff;
+
+      transition: .1s linear all;
+
+      &:hover {
+        background-color: #dddddd;
+        color: #555;
+      }
+
+      &:active {
+        background-color: #ffffff;
+        color: #555;
+        border-color: #dddddd;
+      }
+    }
+  }
+}
+
+.boxes {
+
+  .box {
+    background-color: #ffffff;
+    border-color: #e8e7e7;
+  }
+}
+
+h2 {
+  color: #7f7f7f;
+}
