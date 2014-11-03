@@ -1,6 +1,6 @@
 /*!
  *
- *  Fake Underscore for 24i
+ *  Fake Underscore
  *
  */
 

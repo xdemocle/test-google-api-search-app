@@ -1,6 +1,6 @@
 /*!
  *
- *  Fake jQuery for 24i
+ *  Fake jQuery
  *
  */
 
