@@ -1,5 +1,5 @@
 {
-  "name": "24i-google-api-search-app",
+  "name": "test-google-api-search-app",
   "devDependencies": {
     "apache-server-configs": "^2.7.1",
     "grunt": "^0.4.5",
@@ -28,7 +28,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@bitbucket.org:xdemocle/24i-google-api-search.git"
+    "url": "git@bitbucket.org:xdemocle/test-google-api-search.git"
   },
   "engines": {
     "node": ">=0.10.0"
