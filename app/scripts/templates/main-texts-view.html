@@ -3,24 +3,22 @@
 
   <h2>Web result</h2>
 
-  <div class="results">
-
-    <article>
-      <span class="title">{{title}}</span>
-      <span class="link"><a href="{{link}}">{{link}}</a></span>
-      <span class="text">{{text}}</span>
-    </article>
-
-  </div>
+  <div class="results" id="results"></div>
 
   <footer class="pager">
-
     <ul>
       <li><a href="#1">1</a></li>
       <li><a href="#2">2</a></li>
       <li><a href="#3">3</a></li>
     </ul>
-
   </footer>
 
 </section>
+
+<script type="text/template" id="serp-text-item">
+<article>
+  <span class="title">{{htmlTitle}}</span>
+  <span class="link"><a href="{{link}}">{{htmlFormattedUrl}}</a></span>
+  <span class="text">{{htmlSnippet}}</span>
+</article>
+</script>

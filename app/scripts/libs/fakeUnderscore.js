@@ -8,6 +8,8 @@
 (function() {
   'use strict';
 
+  var win = this;
+
   define(function() {
 
     /**
@@ -22,7 +24,7 @@
        * @return {Array}
        */
       toArray: function(obj) {
-        var arr=new Array();
+        var arr = [];
         for( var i in obj ) {
           if (i !== 'length') {
             if (obj.hasOwnProperty(i)){
@@ -35,7 +37,7 @@
     };
 
     // Copy fake Underscore in public object
-    window._ = _;
+    win._ = _;
 
     return _;
   });

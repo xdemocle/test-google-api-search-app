@@ -8,9 +8,11 @@
 (function() {
   'use strict';
 
+  var win = this;
+
   define(['libs/fakeUnderscore'], function(_) {
 
-    var document = window.document;
+    var document = win.document;
 
     // First declaration and protoype constructor for DOM manipulation, ajax
     // requests and other utility
@@ -149,7 +151,7 @@
 
             context = _.toArray(context);
 
-            context.forEach(function(needle, index, context){
+            context.forEach(function(needle){
 
               needles = _.toArray(needle.getElementsByClassName(target));
 
@@ -173,8 +175,28 @@
 
         } else if (type === '#') {
 
-          // Set only the first needle if isn't empty
-          if (needle = context.getElementById(target)) {
+          // Check if context is a specific object
+          var obj = Object.getPrototypeOf(context) &&
+                    Object.getPrototypeOf(context).constructor.name || false,
+              objHTML = (obj === 'HTMLDivElement') || (obj === 'HTMLScriptElement');
+
+          // Check if context is document root or something else
+          if (obj && objHTML) {
+
+            // Set only the first needle
+            needle = context.querySelector(selector);
+
+            // console.log(obj, objHTML, context, selector, needle);
+
+          } else {
+
+            // console.log(context)
+
+            // Set only the first needle
+            needle = context.getElementById(target);
+          }
+
+          if (needle) {
             elements.push( needle );
           }
 
@@ -311,6 +333,15 @@
         return this.el.getAttribute(attributeName);
       },
 
+      removeAttr: function(attributeName) {
+
+        // If this.el is empty, block execution
+        if (this._noEl()) { return null; }
+
+        // Try to return the attribute in any case
+        return this.el.removeAttribute(attributeName);
+      },
+
       append: function(node) {
 
         // If this.el is empty, block execution
@@ -440,21 +471,39 @@
         this.el.classList.toggle(classes[0]);
       },
 
-      show: function() {
+      show: function(timing, display, opacity) {
 
-        this.el.style.display = 'block';
-        this.attr('style', 'transition: .2s linear all; opacity: 1;');
+        // Set defualt display modality
+        display = display || 'block';
+        opacity = opacity || 1;
+
+        // Set default timing
+        timing = timing || 200;
+
+        // Animate with opacity
+        this.attr('style', 'display: ' + display + '; transition: ' +
+                  (timing / 1000) + 's linear all; opacity: ' + opacity + ';');
       },
 
-      hide: function() {
+      hide: function(timing) {
 
-        var that = this;
+        var that = this,
+            lateron;
 
-        this.attr('style', 'transition: .2s linear all; opacity: 0;');
+        // Set default timing
+        timing = timing || 200;
 
+        // Set timing for setTimeout below
+        lateron = (timing * 1.5);
+
+        // Animate with opacity
+        this.attr('style', 'transition: ' + (timing / 1000) +
+                  's linear all; opacity: 0;');
+
+        // Set the display none after animation
         setTimeout(function() {
           that.el.style.display = 'none';
-        }, 300);
+        }, lateron);
       },
 
       text: function(text) {
@@ -521,7 +570,7 @@
     };
 
     // Copy fake jQuery in public object
-    window.$ = $;
+    win.$ = $;
 
     return $;
   });

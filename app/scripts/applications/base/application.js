@@ -24,7 +24,7 @@
 
       regions: null,
 
-      initialize: function(options) {
+      initialize: function() {
 
         // Auto-init the layout of the app
         this.layout();
@@ -55,18 +55,16 @@
         });
       },
 
-      makeRegions: function(callback) {
+      makeRegions: function() {
 
         var that = this,
             total = this.regions.length,
             last = total-1;
 
-        this.regions.forEach(function(region, index, regions){
+        this.regions.forEach(function(region, index){
 
           // Local vars
-          var id = '#'+region,
-              wrapper = $(id),
-              filepath = 'views/' + region + '-view';
+          var filepath = 'views/' + region + '-view';
 
           // Load main view for base layout
           require([filepath], function() {
@@ -83,24 +81,23 @@
         });
       },
 
-      end: function(argument) {
+      end: function() {
 
         // Hide loader if exist
         this.hideLoader();
       },
 
-      hideLoader: function(argument) {
+      hideLoader: function() {
 
         // Hide loader
         $('#loader').hide();
       },
 
-      showLoader: function(argument) {
+      showLoader: function() {
 
         // Show loader
         $('#loader').show();
-      },
-
+      }
     };
 
     return Application;
