@@ -148,6 +148,10 @@
         }
       });
 
+      // Update page title
+      var prevTitle = document.title.split('|');
+      document.title = q + ' | ' + (prevTitle.length > 1 ? prevTitle[1] : prevTitle[0]);
+
       // Set to empty value
       input.value = '';
       input.blur();

@@ -149,7 +149,6 @@
           if (typeof limit !== 'undefined' && typeof offset !== 'undefined') {
 
             if (!(index < limit && index >= offset)) { return; }
-            // console.log(index, offset, limit);
           }
 
           // Initialize the output element
@@ -185,8 +184,6 @@
 
         // Create pager
         if (this.pagerTotal && this.pagerNum) { this.makePager(); }
-
-        // return $(that.itemsContainer);
       },
 
       makePager: function() {
@@ -195,7 +192,8 @@
         $(this.el).find('#pager').html('');
 
         var that = this,
-            tot = this.pagerTotal,
+            // tot = this.pagerTotal,
+            tot = this.model.collection.length || this.pagerTotal,
             num = this.pagerNum,
             pages = Math.ceil(tot / num),
             loc = location.hash;
@@ -312,16 +310,12 @@
         var newPage = evt.target.location.hash;
 
         this.renderItems();
-        // console.log(this, evt);
       },
 
       resetPager: function() {
 
         // Reset hash
         location.hash = '';
-
-        // Create listening onhashchange
-        // win.removeEventListener("hashchange", this.hashChangePager);
 
         // Reset the pager
         // this.makePager();

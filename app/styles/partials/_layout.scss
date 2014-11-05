@@ -46,11 +46,20 @@
   & > div {
 
     section {
+      position: relative;
       padding: 0 1rem;
     }
   }
 
+  h2 {
+    font-weight: normal;
+    font-size: 1.5em;
+    margin: 1rem 0;
+  }
+
   .search-result-texts {
+
+    padding: 0 1rem 2.5rem;
 
     .results {
 
@@ -81,9 +90,14 @@
         .text {
           font-size: .7rem;
         }
-
       }
+    }
 
+    .pager {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
     }
   }
 
@@ -93,7 +107,7 @@
       display: block;
       list-style: none;
       list-style-type: none;
-      padding: 0;
+      padding: .2rem;
       text-align: center;
 
       li {
@@ -101,7 +115,7 @@
 
         a {
           display: block;
-          padding: 0 1rem;
+          padding: 0 .5rem;
         }
       }
     }
@@ -109,34 +123,46 @@
 
   .search-result-images {
 
+    .wrap {
+      overflow: hidden;
+    }
+
     .results {
+      padding: 0;
+      margin: 0 0 1rem 0;
+      display: flex;
+
+      flex-flow: row wrap;
+      justify-content: space-between;
 
       & > div {
-        display: inline-block;
-        float: left;
-        width: 33%;
-
-        &:nth-child(even) {
-          width: 34%;
-        }
+        color: white;
+        font-weight: bold;
+        font-size: 3em;
+        text-align: center;
+        width: 30%;
+        height: 5rem;
+        margin: .5rem 0;
+        padding: 0;
       }
 
       article {
+        position: relative;
+        width: auto;
+        height: 100%;
 
-        img {
-          width: 100%;
-          height: 5rem;
+        a {
           display: block;
-          padding: 3%;
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          background-repeat: no-repeat;
+          background-position: center center;
+          // background-size: cover;
+          border: .1rem solid #75a6db;
         }
       }
     }
-  }
-
-  h2 {
-    font-weight: normal;
-    font-size: 1.5em;
-    margin: 1rem 0;
   }
 }
 
