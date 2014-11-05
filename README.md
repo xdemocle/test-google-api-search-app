@@ -3,9 +3,9 @@ Google Api Search App
 
 Test assignment. About a simple and responsive PhoneGap app based on Google Api Search results.
 
-NOTES
-**
+## Assignment
 
-Image json search: https://www.googleapis.com/customsearch/v1?num=9&cx=004417568209807888223%3A6slior__w8o&key=AIzaSyDuRaWmTk3jDfm1u4ejlHICRNYXaO2-BV8&searchType=image&imgSize=small&alt=json&q=lectures
+Create a Google search page in HTML5 ( JavaScript, CSS3 and HTML ), according to the design specifications given below.
 
-normal: https://www.googleapis.com/customsearch/v1?num=9&cx=004417568209807888223%3A6slior__w8o&key=AIzaSyDuRaWmTk3jDfm1u4ejlHICRNYXaO2-BV8&q=lectures
+* You must use RequireJS in your solution and you’re not allowed to use any other JavaScript framework/library. You’re also not allowed to use any back-­‐end technology (for example: PHP, Node, etc. ).
+* The code you write should run out of the box when we deploy it with no modifications needed in browser or server settings.
