@@ -2,6 +2,8 @@
 (function() {
   'use strict';
 
+  var win = this;
+
   define(['libs/fakejQuery'], function($) {
 
     var View = function(opts) {
@@ -12,6 +14,9 @@
       // Register name of View
       this.id = opts.id;
       this.container = opts.container;
+
+      // Set autorender
+      this.autoRender = opts.autoRender === false ? false : true;
 
       // Set optional template
       if (opts.template) { this.template = opts.template; }
@@ -25,6 +30,12 @@
       // Set classes from opts.classes
       if (opts.classes) { this.classes = opts.classes; }
 
+      // Set pager values
+      if (opts.pager) {
+        this.pagerTotal = opts.pager.total;
+        this.pagerNum = opts.pager.num;
+      }
+
       // Set model from opts.model
       if (opts.model) { this.model = opts.model; }
 
@@ -36,7 +47,7 @@
 
       $el: null,
 
-      autoRender: true,
+      autoRender: null,
 
       classes: null,
 
@@ -44,7 +55,13 @@
 
       el: null,
 
+      loader: false,
+
+      loaderTimeoutID: false,
+
       model: null,
+
+      pagernum: null,
 
       subviews: null,
 
@@ -97,22 +114,43 @@
 
       renderItems: function(callback) {
 
+        // If no tpl stop execution
+        if (!this.itemTpl || !this.model.collection) { return; }
+
+        // Local variables
         var that = this,
 
             // Check if tpl exist in parameter or in this
-            tpl = this.itemTpl;
+            tpl = this.itemTpl,
 
-        // If no tpl stop execution
-        if (!tpl || !this.model.collection) { return; }
+            // Collection length
+            end = this.model.collection.length-1;
+
+        if (this.pagerTotal && this.pagerNum) {
+
+          var tot = this.pagerNum,
+              num = this.pagerNum,
+              pages = Math.ceil(tot / num),
+              loc = location.hash,
+              limit = (loc === '#text1' || loc === '') ? num :
+                        (loc.replace('#text','') * num),
+              offset = limit - num;
+        }
 
         // Grab the HTML for this tpl present in main tpl view
         tpl = $(this.el).find(tpl).el.innerHTML;
 
         // Empty
-        $(that.el).find(that.itemsContainer).el.innerHTML = '';
+        $(that.el).find(that.itemsContainer).html('');
 
         // Iterate the array collection
-        this.model.collection.forEach(function(item, index, collection){
+        this.model.collection.forEach(function(item, index){
+
+          if (typeof limit !== 'undefined' && typeof offset !== 'undefined') {
+
+            if (!(index < limit && index >= offset)) { return; }
+            // console.log(index, offset, limit);
+          }
 
           // Initialize the output element
           var output = tpl,
@@ -121,8 +159,16 @@
           // Find all placeholders for template {{}}
           tpl.replace(/\{\{(.*?)\}\}/g, function(match, token) {
 
+            var token = token.indexOf('.') !== -1 ? token.split('.') : token;
+
+            var deep = Array.isArray(token) && item[token[0]][token[1]] || false;
+
+            // console.log(match, token, deep);
+
+            var value = deep || item[token];
+
             // Replace all istances in output
-            output = output.replace(match, item[token]);
+            output = output.replace(match, value);
           });
 
           // Set html of the newItem
@@ -131,26 +177,71 @@
           // Append the current item
           $(that.el).find(that.itemsContainer).append(newItem);
 
-          // Hide the loader
-          if (index >= collection.length-1) {
+          // Run the callback
+          if (index >= end) {
             if (callback) { callback(); }
           }
         });
 
-        return $(that.itemsContainer);
+        // Create pager
+        if (this.pagerTotal && this.pagerNum) { this.makePager(); }
+
+        // return $(that.itemsContainer);
       },
 
-      render: function() {
+      makePager: function() {
+
+        // Empty the pager
+        $(this.el).find('#pager').html('');
+
+        var that = this,
+            tot = this.pagerTotal,
+            num = this.pagerNum,
+            pages = Math.ceil(tot / num),
+            loc = location.hash;
+
+        var ul = document.createElement('ul');
+
+        for(var page=1; page<=pages; page++) {
+
+          var li = document.createElement('li'),
+              active = (loc === '#text'+page || (loc === '' && page === 1))
+                        && 'active' || '';
+
+          li.innerHTML = '<a href="#text' + page + '" class="' + active +
+                         '">' + page + '</a>';
+
+          ul.appendChild(li);
+        }
+
+        // Create listening onhashchange
+        window.onpopstate = this.hashChangePager.bind(this);
+
+        // Append the pager
+        $(this.el).find('#pager').append(ul);
+      },
+
+      render: function(callback) {
 
         var that = this;
 
+        this.resetPager();
+
         // Append the view rendered
         setTimeout(function(){
+
+          // Append
           $(that.container).append(that.el);
+
+          // setTimeout(function() {
+          //   // Run the renderItems if itemTpl exist
+          //   if (that.itemTpl) { that.renderItems(); }
+          // }, 100);
+
         }, 1);
 
-        // Run the renderItems if itemTpl exist
-        if (this.itemTpl) { this.renderItems(); }
+        // Run callback standalone
+        if (callback) { callback(); }
 
         return this;
       },
@@ -216,16 +307,72 @@
         document.querySelector('body').addEventListener('click', eventDelegation);
       },
 
-      hideLoader: function() {
+      hashChangePager: function(evt) {
 
-        // Hide loader
-        $('#loader').hide(arguments);
+        var newPage = evt.target.location.hash;
+
+        this.renderItems();
+        // console.log(this, evt);
       },
 
-      showLoader: function() {
+      resetPager: function() {
 
-        // Show loader
-        $('#loader').show(false, 'table', arguments[2]);
+        // Reset hash
+        location.hash = '';
+
+        // Create listening onhashchange
+        // win.removeEventListener("hashchange", this.hashChangePager);
+
+        // Reset the pager
+        // this.makePager();
+      },
+
+      hideLoader: function(timing) {
+
+        var target = this.loader || '#loader';
+
+        // Clear previous setTimeout
+        win.clearTimeout(this.loaderTimeoutID);
+
+        // Hide loader
+        $(target).hide(timing);
+      },
+
+      showLoader: function(timing, display, opacity, target) {
+
+        var target = target === 'nested' ? this.createLoader() : '#loader',
+            display = target === '#loader' ? 'table': 'block';
+
+        // Show the loader with timeout
+        this.loaderTimeoutID = setTimeout(function(){
+
+          // Show loader
+          $(target).show(false, display, opacity);
+
+        }, 300);
+      },
+
+      createLoader: function(){
+
+        var loader = $(this.el).find('.nested-loader').el;
+
+        if (loader.length === 0) {
+          loader = document.createElement('div');
+
+          loader.className = 'nested-loader';
+          loader.setAttribute('style', 'transition: 0.2s linear all; opacity: 0; display: none;');
+
+          var span = document.createElement('div');
+          span.innerHTML = 'Loading...';
+
+          loader.appendChild(span);
+
+          this.$el.append(loader);
+        }
+
+        this.loader = loader;
+
+        return loader;
       }
     };
 

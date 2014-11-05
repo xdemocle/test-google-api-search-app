@@ -130,10 +130,14 @@
         var type = String(selector).slice(0, 1),
             target = String(selector).slice(1, selector.length);
 
+        // console.log(selector, context, typeof selector === 'object')
+
         // Define if the selector is a class or id or a complex
         // select or an object
         if (typeof selector === 'object' &&
-          Object.getPrototypeOf(selector).constructor.name === 'HTMLDivElement') {
+          (Object.getPrototypeOf(selector).constructor.name === 'HTMLDivElement' ||
+          Object.getPrototypeOf(selector).toString() === '[object HTMLDivElementPrototype]')
+        ) {
 
           // Set needle
           needle = selector;
@@ -178,10 +182,13 @@
           // Check if context is a specific object
           var obj = Object.getPrototypeOf(context) &&
                     Object.getPrototypeOf(context).constructor.name || false,
-              objHTML = (obj === 'HTMLDivElement') || (obj === 'HTMLScriptElement');
+              objSafari = Object.getPrototypeOf(context).toString(),
+              objHTML = (obj === 'HTMLDivElement') || (obj === 'HTMLScriptElement' || objSafari === '[object HTMLDivElementPrototype]');
+
+          // console.log(objHTML, objSafari)
 
           // Check if context is document root or something else
-          if (obj && objHTML) {
+          if ((obj || objSafari) && objHTML) {
 
             // Set only the first needle
             needle = context.querySelector(selector);
@@ -189,8 +196,6 @@
             // console.log(obj, objHTML, context, selector, needle);
 
           } else {
-
-            // console.log(context)
 
             // Set only the first needle
             needle = context.getElementById(target);
@@ -526,7 +531,7 @@
         if (this._noEl()) { return null; }
 
         // If no arguments, return the innerHTML
-        if (!newHtml) { return this.el.innerHTML; }
+        if (typeof newHtml === 'undefined') { return this.el.innerHTML; }
 
         // Set the text of new node
         this.el.innerHTML = newHtml;

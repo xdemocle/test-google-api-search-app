@@ -2,6 +2,18 @@
  * Skin file
  */
 
+a {
+  &:link {
+    color: #287fdb;
+  }
+  &:visited {
+    color: #75a6db;
+  }
+  &:hover {
+    color: #287fdb;
+  }
+}
+
 .app {
   background: #dbe4f4; /* Old browsers */
   background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#dbe4f4), color-stop(100%,#ffffff)); /* Chrome,Safari4+ */
@@ -15,8 +27,29 @@
 
 }
 
+
 .main-container {
 
+  .pager {
+
+    ul {
+
+      li {
+
+        a {
+          &:link, &:visited {
+            color: #7f7f7f;
+            text-decoration: none;
+          }
+
+          &:hover, &.active {
+            color: #333;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
 }
 
 .footer-container {
@@ -72,4 +105,19 @@ h2 {
 
 .error {
   background-color: rgba(204, 51, 0, .3);
+}
+
+.loader {
+  // background-color: rgba(211, 84, 0, 0.3);
+  // background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgba(26, 188, 156, 0.90);
+
+  &.transparent {
+    background-color: rgba(26, 188, 156, 0.5);
+  }
+}
+
+.nested-loader {
+  background-color: rgba(147, 161, 185, 0.9);
+  color: #fff;
 }

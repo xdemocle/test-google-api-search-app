@@ -3,15 +3,17 @@
  */
 
 .app {
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  overflow: hidden;
+  // overflow: hidden;
   z-index: 5;
+  overflow-x: hidden;
+  overflow-y: scroll;
 
   .wrapper {
     position: absolute;
@@ -22,8 +24,6 @@
     width: 100%;
     height: 100%;
     padding: 2rem 0;
-    overflow-x: hidden;
-    overflow-y: scroll;
     z-index: 6;
   }
 }
@@ -32,10 +32,112 @@
   margin: 1rem 1rem 0;
 }
 
+.main {
+  position: absolute;
+  top: 8.5rem;
+  bottom: 1rem;
+}
+
 .main-container {
-  // margin: .5rem 0 0;
+
+  min-height: 100%;
+  padding-bottom: 2rem;
+
+  & > div {
+
+    section {
+      padding: 0 1rem;
+    }
+  }
+
+  .search-result-texts {
+
+    .results {
+
+      article {
+        font-size: .8rem;
+        margin: 1.3rem 0;
+
+        span {
+          display: block;
+          clear: both;
+          margin: .2rem 0;
+          line-height: 1rem;
+        }
+
+        .title {
+          font-size: .9rem;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
+        .link {
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
+        .text {
+          font-size: .7rem;
+        }
+
+      }
+
+    }
+  }
+
+  .pager {
+
+    ul {
+      display: block;
+      list-style: none;
+      list-style-type: none;
+      padding: 0;
+      text-align: center;
+
+      li {
+        display: inline-block;
+
+        a {
+          display: block;
+          padding: 0 1rem;
+        }
+      }
+    }
+  }
+
+  .search-result-images {
+
+    .results {
+
+      & > div {
+        display: inline-block;
+        float: left;
+        width: 33%;
+
+        &:nth-child(even) {
+          width: 34%;
+        }
+      }
+
+      article {
+
+        img {
+          width: 100%;
+          height: 5rem;
+          display: block;
+          padding: 3%;
+        }
+      }
+    }
+  }
+
+  h2 {
+    font-weight: normal;
+    font-size: 1.5em;
+    margin: 1rem 0;
+  }
 }
 
-.footer-container {
-
-}
+.footer-container {}

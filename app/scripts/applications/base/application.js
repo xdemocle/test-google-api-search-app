@@ -48,7 +48,10 @@
         }
 
         // Load main view for base layout
-        require([filepath], function(){
+        require([filepath], function(MainView){
+
+          // Update main
+          that.main = MainView;
 
           // Create other views for regions
           that.makeRegions();
@@ -84,19 +87,7 @@
       end: function() {
 
         // Hide loader if exist
-        this.hideLoader();
-      },
-
-      hideLoader: function() {
-
-        // Hide loader
-        $('#loader').hide();
-      },
-
-      showLoader: function() {
-
-        // Show loader
-        $('#loader').show();
+        this.main.hideLoader();
       }
     };
 

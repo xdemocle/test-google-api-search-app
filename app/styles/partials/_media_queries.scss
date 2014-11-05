@@ -23,6 +23,10 @@
   .w100, .w90, .w80, .w70, .w60, .w50, .w40, .w30, .w20, .w10 {
     width: 100%;
   }
+
+  .main {
+    top: 12rem;
+  }
 }
 
 /* #### Desktops #### */
@@ -30,10 +34,6 @@
 
   html {
     font-size: 20px;
-  }
-
-  .main-container {
-    margin: 1rem 0 0;
   }
 
   .input-groups {

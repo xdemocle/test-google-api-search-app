@@ -1,24 +1,18 @@
 <!-- Textual result section -->
-<section id="search-result-texts">
+<section id="search-result-texts" class="search-result-texts">
 
   <h2>Web result</h2>
 
   <div class="results" id="results"></div>
 
-  <footer class="pager">
-    <ul>
-      <li><a href="#1">1</a></li>
-      <li><a href="#2">2</a></li>
-      <li><a href="#3">3</a></li>
-    </ul>
-  </footer>
+  <footer class="pager" id="pager"></footer>
 
 </section>
 
 <script type="text/template" id="serp-text-item">
 <article>
   <span class="title">{{htmlTitle}}</span>
-  <span class="link"><a href="{{link}}">{{htmlFormattedUrl}}</a></span>
+  <span class="link"><a href="{{link}}" target="_blank">{{htmlFormattedUrl}}</a></span>
   <span class="text">{{htmlSnippet}}</span>
 </article>
 </script>

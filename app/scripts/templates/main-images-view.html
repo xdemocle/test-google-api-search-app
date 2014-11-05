@@ -1,5 +1,5 @@
 <!-- Image result section -->
-<section id="search-result-images">
+<section id="search-result-images" class="search-result-images">
 
   <h2>Image result</h2>
 
@@ -9,6 +9,6 @@
 
 <script type="text/template" id="serp-image-item">
 <article>
-  <img src="{{image}}" alt="{{image}}" title="{{title}}" />
+  <a href="{{link}}" target="_blank" style="background-image:url('{{image.thumbnailLink}}')" title="{{title}}"></a>
 </article>
 </script>

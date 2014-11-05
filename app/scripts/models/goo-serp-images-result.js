@@ -7,9 +7,9 @@
     var ModelImages = function() {
 
       // Set the endpoint url
-      // this.url = 'https://www.googleapis.com/customsearch/v1' +
-      //            '?cx=004417568209807888223%3A6slior__w8o&' +
-      //            'key=AIzaSyDuRaWmTk3jDfm1u4ejlHICRNYXaO2-BV8&q=';
+      this.url = 'https://www.googleapis.com/customsearch/v1' +
+                 '?cx=004417568209807888223%3A6slior__w8o&' +
+                 'key=AIzaSyDuRaWmTk3jDfm1u4ejlHICRNYXaO2-BV8&q=';
 
       this.url = '../dummy-api/dummy-image-result-q-lectures.json?';
 
@@ -39,13 +39,16 @@
      * Fetch data from endpoint
      * @return Array
      */
-    ModelImages.prototype.search = function(q, callback) {
+    ModelImages.prototype.search = function(q, callbacks) {
+
+      // Run before function
+      if (callbacks.before) { callbacks.before(); }
 
       // Set the search term
       this.searchTerm = encodeURI(q);
 
       // Return the ajax call
-      return this.fetch(callback);
+      return this.fetch(callbacks.after);
     };
 
     return ModelImages;
