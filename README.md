@@ -28,21 +28,45 @@ From the link below yo ucan also install the app on your device:
 (Install link for iOS is not available due missing Apple certificates)
 
 
-First use after GIT clone
-------
+## Summary of set up
+***
 
-To install all dependencies of the environment you need Ruby, Node.js, Grunt and Bower installed locally.
+### Prepare dev environment
 
-After all dependency installed on your system.
-Start with the commands below in your terminal:
+* [Install Node.js and npm (Node Package Manager)](http://nodejs.org/download/)
+* [Install Sass](http://sass-lang.com/install)
+* [Install Bower](http://bower.io/)
+* [Install Grunt](http://gruntjs.com/getting-started)
 
-* npm install
-* bower install
+### Prepare SDK environments (Only if you want compile/emulate the PhoneGap app locally)
+
+* [Install iOS SDK and Xcode](https://developer.apple.com/xcode/downloads/)
+* [Install Android SDK and tools](https://developer.android.com/sdk/installing/index.html)
 
 
-Usage
--------
+## Usage
+***
 
-One shot deploy for Adobe build:
-grunt deploy (jshint, compile, deploy to build phonegap)
+### First step after git clone
 
+* Install all requirements described at "Prepare project environment".
+* Running **bower install & npm install** to install the required dependencies. If this fails, try running the commands separately and check errors.
+* Create an empty private.json file in root of the project.
+* OPTIONAL: set username and password of your account build.phonegap.com
+
+```javascript
+{
+    "phonegap": {
+        "email": "yourBuildPhonegapEmail",
+        "pass": "yourBuildPhonegapPass"
+    }
+}
+```
+
+
+### Phonegap/build tasks via command line
+
+* type: grunt deploy (deploy to build.phonegap.com. Follow optional instructions of "First step after git clone")
+  Go here: https://build.phonegap.com/apps/[appid]/install (to see the app installed. wait few minutes)
+  [appid] need to be changed with appId present in package.json
+* type: grunt serve (run a working instance in your browser for development purpose)
