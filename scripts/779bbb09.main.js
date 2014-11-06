@@ -1763,10 +1763,10 @@ define('text!templates/header-view.html',[],function () { return '<form name="se
 }).call(this);
 
 
-define('text!templates/main-images-view.html',[],function () { return '<!-- Image result section -->\n<section id="search-result-images" class="search-result-images">\n\n  <h2>Image result</h2>\n\n  <div class="results" id="results"></div>\n\n</section>\n\n<script type="text/template" id="serp-image-item">\n<article>\n  <a href="{{link}}" target="_blank" style="background-image:url(\'{{image.thumbnailLink}}\')" title="{{title}}"></a>\n</article>\n</script>\n';});
+define('text!templates/main-images-view.html',[],function () { return '<!-- Image result section -->\n<section id="search-result-images" class="search-result-images">\n\n  <h2>Image result</h2>\n\n  <div class="results" id="results"></div>\n\n</section>\n\n<script type="text/template" id="serp-image-item">\n<article>\n  <a href="javascript:window.u.openLink(\'{{link}}\')" target="_blank" style="background-image:url(\'{{image.thumbnailLink}}\')" title="{{title}}"></a>\n</article>\n</script>\n';});
 
 
-define('text!templates/main-texts-view.html',[],function () { return '<!-- Textual result section -->\n<section id="search-result-texts" class="search-result-texts">\n\n  <h2>Web result</h2>\n\n  <div class="results" id="results"></div>\n\n  <footer class="pager" id="pager"></footer>\n\n</section>\n\n<script type="text/template" id="serp-text-item">\n<article>\n  <span class="title">{{htmlTitle}}</span>\n  <span class="link"><a href="{{link}}" target="_blank">{{htmlFormattedUrl}}</a></span>\n  <span class="text">{{htmlSnippet}}</span>\n</article>\n</script>\n';});
+define('text!templates/main-texts-view.html',[],function () { return '<!-- Textual result section -->\n<section id="search-result-texts" class="search-result-texts">\n\n  <h2>Web result</h2>\n\n  <div class="results" id="results"></div>\n\n  <footer class="pager" id="pager"></footer>\n\n</section>\n\n<script type="text/template" id="serp-text-item">\n<article>\n  <span class="title">{{htmlTitle}}</span>\n  <span class="link"><a href="javascript:window.u.openLink(\'{{link}}\')" target="_blank">{{htmlFormattedUrl}}</a></span>\n  <span class="text">{{htmlSnippet}}</span>\n</article>\n</script>\n';});
 
 /*global define */
 (function() {
@@ -2145,6 +2145,40 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
 
 }).call(this);
 
+/**
+ * Utility functions collection
+ */
+(function() {
+  
+
+  // Shortcut to window public object
+  var win = this;
+
+  // Object container for utility functions
+  var u = {
+
+    openLink: function(url) {
+
+      // Switch for isPhonegap
+      if (win.isPhonegap) {
+
+        win.navigator.app.loadUrl(url, { openExternal:true });
+
+      } else {
+
+        win.open(url, '_blank');
+      }
+    }
+
+  };
+
+  // Copy in public object
+  win.u = u;
+
+}).call(window);
+
+define("libs/utility", function(){});
+
 /*global window, requirejs */
 /**
  * Bootstrap file
@@ -2179,7 +2213,7 @@ requirejs.config({
   // Starting the app when the DOM is ready/loaded
   document.addEventListener('DOMContentLoaded', function() {
 
-    requirejs(['applications/single-page-app'], function(SingleAppPage) {
+    requirejs(['applications/single-page-app', 'libs/utility'], function(SingleAppPage) {
 
       // Some console output
       console.info('DOM Loaded,', 'Cordova: ' + ('cordova' in win));
