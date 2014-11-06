@@ -4,20 +4,20 @@
 
 
 /* #### Mobile Phones Portrait #### */
-@media screen and (max-device-width: 480px) and (orientation: portrait){
-  /* some CSS here */
-}
+// @media screen and (max-device-width: 480px) and (orientation: portrait){
+//   /* some CSS here */
+// }
 
 /* #### Mobile Phones Landscape #### */
-@media screen and (max-device-width: 640px) and (orientation: landscape){
-  /* some CSS here */
-}
+// @media screen and (max-device-width: 640px) and (orientation: landscape){
+//   /* some CSS here */
+// }
 
 /* #### Mobile Phones Portrait or Landscape #### */
-@media screen and (max-device-width: 768px), screen and (max-width: 768px) {
+@media screen and (max-device-width: 767px), screen and (max-width: 767px) {
 
   .boxes .box {
-    display: inline-block;
+    display: block;
   }
 
   .w100, .w90, .w80, .w70, .w60, .w50, .w40, .w30, .w20, .w10 {
@@ -26,6 +26,40 @@
 
   .main {
     top: 12rem;
+  }
+
+  .main-container > div section {
+    max-height: 1000px;
+    transition: .2s linear all;
+
+    h2 {
+      transition: .2s linear all;
+      cursor: pointer;
+
+      &:after {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        content: '-';
+        font-size: 2rem;
+        line-height: 1.5rem;
+        margin: 0;
+      }
+    }
+
+    &.closed {
+
+      max-height: 45px;
+
+      h2 {
+        margin: .4rem 0;
+      }
+
+      h2:after {
+        content: '+';
+      }
+    }
   }
 }
 
@@ -43,6 +77,21 @@
       &:last-child {
         margin-left: 2%;
         width: 18%;
+      }
+    }
+  }
+
+  .main-container {
+
+    .search-result-texts {
+
+      padding: 0 1rem 2rem;
+
+      .pager {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
       }
     }
   }

@@ -8,10 +8,11 @@
 
       // Set the endpoint url
       this.url = 'https://www.googleapis.com/customsearch/v1' +
-                 '?cx=004417568209807888223%3A6slior__w8o&' +
-                 'key=AIzaSyDuRaWmTk3jDfm1u4ejlHICRNYXaO2-BV8&q=';
+                 '?num=9&cx=004417568209807888223%3A6slior__w8o&' +
+                 'key=AIzaSyDuRaWmTk3jDfm1u4ejlHICRNYXaO2-BV8&' +
+                 'searchType=image&imgSize=small&alt=json&q=';
 
-      this.url = '../dummy-api/dummy-image-result-q-lectures.json?';
+      // this.url = '../dummy-api/dummy-image-result-q-lectures.json?';
 
       // Call model parent
       Model.call(this, arguments);
@@ -21,10 +22,15 @@
     ModelImages.prototype = Object.create(Model.prototype);
 
     /**
-     * [initialize description]
+     * Hook of parse
      * @return {[type]}
      */
     ModelImages.prototype.parse = function(response) {
+
+      // Reset the model in case of no result
+      if (Number(response.searchInformation.totalResults) === 0) {
+        this.collection = null;
+      }
 
       // Stop execution
       if (!response || !response.items) { return; }
@@ -48,7 +54,7 @@
       this.searchTerm = encodeURI(q);
 
       // Return the ajax call
-      return this.fetch(callbacks.after);
+      this.fetch(callbacks && callbacks.after);
     };
 
     return ModelImages;

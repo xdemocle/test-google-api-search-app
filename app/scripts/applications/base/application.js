@@ -2,7 +2,14 @@
 (function() {
   'use strict';
 
-  define(['libs/fakejQuery'], function($) {
+  define([
+    'libs/fakejQuery',
+    'views/site-view',
+    'views/header-view',
+    'views/main-view',
+    'views/searchimages-view',
+    'views/searchtexts-view'
+  ], function($) {
 
     function Application(options) {
 

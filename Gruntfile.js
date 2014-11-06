@@ -19,7 +19,10 @@ module.exports = function (grunt) {
   // Configurable paths
   var config = {
     app: 'app',
-    dist: 'dist'
+    dist: 'dist',
+    build: 'phonegap',
+    pkg: grunt.file.readJSON('package.json'),
+    pvt: grunt.file.readJSON('private.json')
   };
 
   // Define the configuration for all the tasks
@@ -122,7 +125,15 @@ module.exports = function (grunt) {
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      'phonegap-build': {
+        files: [
+          {
+            dot: true,
+            src: ['<%=config.build%>/www/*']
+          }
+        ]
+      }
     },
 
     // Make sure code styles are up to par and there are no obvious mistakes
@@ -213,6 +224,26 @@ module.exports = function (grunt) {
             '<%= config.dist %>/styles/fonts/{,*/}*.*',
             '<%= config.dist %>/*.{ico,png}'
           ]
+        }
+      }
+    },
+
+    requirejs: {
+      dist: {
+        options: {
+          baseUrl: '<%=config.app%>/scripts',
+          mainConfigFile: '<%=config.app%>/scripts/bootstrap.js',
+          name: 'bootstrap',
+          out: '<%=config.dist%>/scripts/main.js',
+          inlineText: true,
+          optimizeAllPluginResources: true,
+          // optimize: 'uglify',
+          optimize: 'none',
+          preserveLicenseComments: false,
+          findNestedDependencies: true,
+          // include: [
+          //   "../../<%=config.lib%>/requirejs/require.js"
+          // ]
         }
       }
     },
@@ -336,6 +367,13 @@ module.exports = function (grunt) {
         cwd: '<%= config.app %>/styles',
         dest: '.tmp/styles/',
         src: '{,*/}*.css'
+      },
+      tophonegap: {
+        expand: true,
+        dot: true,
+        cwd: '<%=config.dist%>',
+        dest: '<%=config.build%>/www',
+        src: ['{,*/}{,*/}{,*/}{,*/}*.*']
       }
     },
 
@@ -354,7 +392,83 @@ module.exports = function (grunt) {
         'imagemin',
         'svgmin'
       ]
+    },
+
+    compress: {
+      main: {
+        options: {
+          archive: 'prebuild-adobe/<%= config.pkg.name %>-<%= config.pkg.version %>.zip',
+          mode: 'zip'
+        },
+        files: [
+          {
+            src: ['<%= config.build %>/www/**'],
+            dest: ''
+          }
+        ]
+      }
+    },
+
+    shell: {
+      options: {
+        stderr: false
+      },
+      unlockkey: {
+        command: 'curl -ku ' + config.pvt.phonegap.email + ':' + config.pvt.phonegap.pass + ' -X PUT -d \'data={"password":"1234"}\' https://build.phonegap.com/api/v1/keys/ios/<%= config.pkg.adobe.keys.ios.testing %>'
+      }
+    },
+
+    phonegap: {
+      config: {
+        verbose: true,
+        root: '<%= config.dist %>',
+        config: {
+          template: '_config.xml',
+          data: {
+            id: '<%= config.pkg.id %>',
+            version: '<%= config.pkg.version %>',
+            name: '<%= config.pkg.name %>',
+            title: '<%= config.pkg.title %>',
+            author: '<%= config.pkg.author.name %>',
+            email: '<%= config.pkg.author.email %>',
+            homepage: '<%= config.pkg.homepage %>',
+            description: '<%= config.pkg.description %>'
+          }
+        },
+        maxBuffer: 500,
+        cordova: 'phonegap/.cordova',
+        path: '<%= config.build %>',
+        plugins: [
+        'https://github.com/apache/cordova-plugin-device.git',
+        'https://github.com/phonegap-build/StatusBarPlugin.git'
+        ],
+        platforms: ['android','ios']
+      }
+    },
+
+    'phonegap-build': {
+      debug: {
+        options: {
+          archive: 'prebuild-adobe/<%= config.pkg.name %>-<%= config.pkg.version %>.zip',
+          'appId': '<%= config.pkg.adobe.appId %>',
+          'user': {
+            'email': config.pvt.phonegap.email,
+            'password': config.pvt.phonegap.pass
+          }
+        }
+      },
+      release: {
+        options: {
+          archive: 'prebuild-adobe/<%= config.pkg.name %>-<%= config.pkg.version %>.zip',
+          'appId': '<%= config.pkg.adobe.appId %>',
+          'user': {
+            'email': config.pvt.phonegap.email,
+            'password': config.pvt.phonegap.pass
+          }
+        }
+      }
     }
+
   });
 
 
@@ -406,11 +520,35 @@ module.exports = function (grunt) {
     'concat',
     'cssmin',
     'uglify',
+    'requirejs:dist',
     'copy:dist',
     'rev',
     'usemin',
     'htmlmin'
   ]);
+
+  grunt.registerTask('deploy', function(destination) {
+    var debug;
+
+    if (typeof destination === 'undefined') {
+      destination = 'testing';
+    }
+
+    grunt.config.set('phonegap.config.platforms', []);
+    grunt.config.set('phonegap.config.plugins', []);
+
+    grunt.task.run(['build:' + destination, 'clean:phonegap-build', 'copy:tophonegap']);
+
+    grunt.log.ok('Deploy task for: ' + destination);
+
+    debug = (destination === 'testing' ? true : false);
+
+    grunt.config.set('phonegap.config.debuggable', debug);
+
+    grunt.task.run(['phonegap:build', 'compress']);
+
+    grunt.task.run(['shell:unlockkey', 'phonegap-build:debug']);
+  });
 
   grunt.registerTask('default', [
     'newer:jshint',

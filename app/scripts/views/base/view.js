@@ -30,6 +30,11 @@
       // Set classes from opts.classes
       if (opts.classes) { this.classes = opts.classes; }
 
+      // Set events
+      if (opts.events) {
+        this.events = opts.events;
+      }
+
       // Set pager values
       if (opts.pager) {
         this.pagerTotal = opts.pager.total;
@@ -55,6 +60,10 @@
 
       el: null,
 
+      events: null,
+
+      eventsReady: false,
+
       loader: false,
 
       loaderTimeoutID: false,
@@ -73,11 +82,6 @@
 
         // Set HTML elements
         this.setHTML();
-
-        // Check if autoRender is set
-        if (this.autoRender) {
-          this.render();
-        }
       },
 
       setHTML: function() {
@@ -102,6 +106,11 @@
 
         // If model and attributes is present, parse also the data
         if (this.model && this.model.attributes) { this.parseData(); }
+
+        // Check if autoRender is set
+        if (this.autoRender) {
+          this.render();
+        }
       },
 
       parseData: function() {
@@ -114,76 +123,99 @@
 
       renderItems: function(callback) {
 
-        // If no tpl stop execution
-        if (!this.itemTpl || !this.model.collection) { return; }
+        if (!this.model.collection) {
 
-        // Local variables
-        var that = this,
+          // console.log( $(this.el).find(this.itemsContainer).find('ul') )
 
-            // Check if tpl exist in parameter or in this
-            tpl = this.itemTpl,
+          //
+          $(this.el).find(this.itemsContainer).el.innerHTML = '';
 
-            // Collection length
-            end = this.model.collection.length-1;
+          var noResultsMessage = document.createElement('p');
 
-        if (this.pagerTotal && this.pagerNum) {
+          noResultsMessage.innerHTML = 'No search results';
 
-          var tot = this.pagerNum,
-              num = this.pagerNum,
-              pages = Math.ceil(tot / num),
-              loc = location.hash,
-              limit = (loc === '#text1' || loc === '') ? num :
-                        (loc.replace('#text','') * num),
-              offset = limit - num;
+          $(this.el).find(this.itemsContainer).append(noResultsMessage);
+
+          // Launch callback
+          callback();
         }
 
-        // Grab the HTML for this tpl present in main tpl view
-        tpl = $(this.el).find(tpl).el.innerHTML;
+        // If no tpl stop execution
+        if (this.itemTpl && this.model.collection) {
 
-        // Empty
-        $(that.el).find(that.itemsContainer).html('');
+          // Local variables
+          var that = this,
 
-        // Iterate the array collection
-        this.model.collection.forEach(function(item, index){
+              // Check if tpl exist in parameter or in this
+              tpl = this.itemTpl,
 
-          if (typeof limit !== 'undefined' && typeof offset !== 'undefined') {
+              // Collection length
+              end = this.model.collection.length-1;
 
-            if (!(index < limit && index >= offset)) { return; }
+          // Check if we have all values to make a pager
+          if (this.pagerTotal && this.pagerNum) {
+
+            var num = this.pagerNum,
+                // pages = Math.ceil(tot / num),
+                loc = location.hash,
+                limit = (loc === '#text1' || loc === '') ? num :
+                          (loc.replace('#text','') * num),
+                offset = limit - num;
           }
 
-          // Initialize the output element
-          var output = tpl,
-              newItem = document.createElement('div');
+          // Grab the HTML for this tpl present in main tpl view
+          tpl = $(this.el).find(tpl).el.innerHTML;
 
-          // Find all placeholders for template {{}}
-          tpl.replace(/\{\{(.*?)\}\}/g, function(match, token) {
+          // Empty
+          $(that.el).find(that.itemsContainer).html('');
 
-            var token = token.indexOf('.') !== -1 ? token.split('.') : token;
+          // Iterate the array collection
+          this.model.collection.forEach(function(item, index){
 
-            var deep = Array.isArray(token) && item[token[0]][token[1]] || false;
+            // If we have limit and offset
+            if (typeof limit !== 'undefined' && typeof offset !== 'undefined') {
 
-            // console.log(match, token, deep);
+              // Stop execution respecting limit/offset parameters
+              if (!(index < limit && index >= offset)) { return; }
+            }
 
-            var value = deep || item[token];
+            // Initialize the output element
+            var output = tpl,
+                newItem = document.createElement('div');
 
-            // Replace all istances in output
-            output = output.replace(match, value);
+            // Find all placeholders for template {{}}
+            tpl.replace(/\{\{(.*?)\}\}/g, function(match, token) {
+
+              // Check if the token as an object subvalue item
+              var tok = token.indexOf('.') !== -1 ? token.split('.') : token;
+
+              // If token is splitted and become a valid array
+              var deep = Array.isArray(tok) && item[tok[0]][tok[1]] || false;
+
+              // Switch between normal token and deep token
+              var value = deep || item[tok];
+
+              // Replace all istances in output
+              output = output.replace(match, value);
+            });
+
+            // Set html of the newItem
+            newItem.innerHTML = output;
+
+            // Append the current item
+            $(that.el).find(that.itemsContainer).append(newItem);
+
+            // Run the callback
+            if (index >= (limit-1) || index >= end) {
+              if (callback) { callback(); }
+            }
           });
 
-          // Set html of the newItem
-          newItem.innerHTML = output;
+          // Create pager
+          if (this.pagerTotal && this.pagerNum) { this.makePager(); }
+        }
 
-          // Append the current item
-          $(that.el).find(that.itemsContainer).append(newItem);
-
-          // Run the callback
-          if (index >= end) {
-            if (callback) { callback(); }
-          }
-        });
-
-        // Create pager
-        if (this.pagerTotal && this.pagerNum) { this.makePager(); }
+        return this;
       },
 
       makePager: function() {
@@ -191,9 +223,7 @@
         // Empty the pager
         $(this.el).find('#pager').html('');
 
-        var that = this,
-            // tot = this.pagerTotal,
-            tot = this.model.collection.length || this.pagerTotal,
+        var tot = this.model.collection.length || this.pagerTotal,
             num = this.pagerNum,
             pages = Math.ceil(tot / num),
             loc = location.hash;
@@ -203,8 +233,8 @@
         for(var page=1; page<=pages; page++) {
 
           var li = document.createElement('li'),
-              active = (loc === '#text'+page || (loc === '' && page === 1))
-                        && 'active' || '';
+              active = (loc === '#text'+page || (loc === '' && page === 1)) &&
+                       'active' || '';
 
           li.innerHTML = '<a href="#text' + page + '" class="' + active +
                          '">' + page + '</a>';
@@ -223,23 +253,35 @@
 
         var that = this;
 
+        // Reset the flag eventsReady
+        this.eventsReady = false;
+
         this.resetPager();
+
+        var onDomChange = function(){
+
+          // Run callback standalone
+          if (callback) { callback(); }
+
+          // Load events for this view
+          if (!that.eventsReady) { that.loadEvents(); }
+
+          // Remove event listener
+          $(that.container).el
+            .removeEventListener('DOMSubtreeModified', onDomChange);
+        };
 
         // Append the view rendered
         setTimeout(function(){
 
-          // Append
+          //
+          $(that.container).el
+            .addEventListener('DOMSubtreeModified', onDomChange, false);
+
+          // Attach to the DOM
           $(that.container).append(that.el);
 
-          // setTimeout(function() {
-          //   // Run the renderItems if itemTpl exist
-          //   if (that.itemTpl) { that.renderItems(); }
-          // }, 100);
-
-        }, 1);
-
-        // Run callback standalone
-        if (callback) { callback(); }
+        }, 0);
 
         return this;
       },
@@ -278,36 +320,68 @@
         });
       },
 
-      listenTo: function(evt, element, callback) {
+      loadEvents: function() {
 
-        // Local function to listen on delegated event
-        var on = function(evt, element, callback) {
+        var that = this;
 
-          // Add the listener on specific element
-          element.addEventListener(evt, callback);
-        };
+        // Stop if events are already loaded
+        if (this.eventsReady) { return; }
 
-        var eventDelegation = function(event) {
+        // Update flag eventsReady
+        this.eventsReady = true;
 
-          // var tagName = event.target.tagName.toLowerCase(),
-          var type = event.target.type,
-              form = event.target.form;
+        // Stop if no events to load
+        if (this.events && Array.isArray(this.events)) {
 
-          // console.log(event, tagName, type, form);
+          // Iterate all events
+          this.events.forEach(function(singleEvent){
 
-          if (evt === 'submit' && form && type === 'submit') {
-            on(evt, form, callback);
-          }
-        };
+            // Load event
+            singleEvent(that);
+          });
+        }
 
-        // Event delegation on body clicks
-        document.querySelector('body').addEventListener('keydown', eventDelegation);
-        document.querySelector('body').addEventListener('click', eventDelegation);
+        return this;
       },
 
-      hashChangePager: function(evt) {
+      listenTo: function(evt, element, callback) {
 
-        var newPage = evt.target.location.hash;
+        var elClone;
+
+        // Check if element is still a string
+        if (typeof element === 'string') {
+
+          element = $(this.el).find(element).el;
+
+          // console.log(evt, element);
+
+          // Check if results are more than one
+          if (Array.isArray(element)) {
+
+            element.forEach(function(el){
+
+              // Add the listener on specific element
+              el.removeEventListener(evt, callback, false);
+              el.addEventListener(evt, callback, false);
+            });
+
+            return;
+          }
+        }
+
+        // Clone the element to remove any listener
+        elClone = element.cloneNode(true);
+        element.parentNode.replaceChild(elClone, element);
+
+        // Add the listener on cloned element
+        elClone.addEventListener(evt, callback, false);
+
+        return this;
+      },
+
+      hashChangePager: function() {
+
+        // var newPage = evt.target.location.hash;
 
         this.renderItems();
       },
@@ -319,6 +393,8 @@
 
         // Reset the pager
         // this.makePager();
+
+        return this;
       },
 
       hideLoader: function(timing) {
@@ -330,12 +406,17 @@
 
         // Hide loader
         $(target).hide(timing);
+
+        return this;
       },
 
       showLoader: function(timing, display, opacity, target) {
 
-        var target = target === 'nested' ? this.createLoader() : '#loader',
-            display = target === '#loader' ? 'table': 'block';
+        // Clear previous setTimeout
+        win.clearTimeout(this.loaderTimeoutID);
+
+        target = target === 'nested' ? this.createLoader() : '#loader';
+        display = target === '#loader' ? 'table': 'block';
 
         // Show the loader with timeout
         this.loaderTimeoutID = setTimeout(function(){
@@ -344,6 +425,8 @@
           $(target).show(false, display, opacity);
 
         }, 300);
+
+        return this;
       },
 
       createLoader: function(){

@@ -134,10 +134,7 @@
 
         // Define if the selector is a class or id or a complex
         // select or an object
-        if (typeof selector === 'object' &&
-          (Object.getPrototypeOf(selector).constructor.name === 'HTMLDivElement' ||
-          Object.getPrototypeOf(selector).toString() === '[object HTMLDivElementPrototype]')
-        ) {
+        if (typeof selector === 'object') {
 
           // Set needle
           needle = selector;
@@ -395,6 +392,18 @@
         this.el.remove();
 
         return true;
+      },
+
+      hasClass: function(className) {
+
+        // If this.el is empty, block execution
+        if (this._noEl()) { return null; }
+
+        // Check the presence of className in element className string
+        var indexOf = this.el.className.indexOf(className);
+
+        // Return back the boolean value
+        return indexOf !== -1 ? true : false;
       },
 
       addClass: function(className) {
