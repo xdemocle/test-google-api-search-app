@@ -15,7 +15,7 @@
       // Switch for isPhonegap
       if (win.isPhonegap) {
 
-        win.navigator.app.loadUrl('https://google.com/', { openExternal:true });
+        win.navigator.app.loadUrl(url, { openExternal:true });
 
       } else {
 

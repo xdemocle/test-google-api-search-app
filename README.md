@@ -16,13 +16,16 @@ Create a Google search page in HTML5 ( JavaScript, CSS3 and HTML ), according to
 See complete running app from here:
 [http://xdemocle.github.io/test-google-api-search-app/](http://xdemocle.github.io/test-google-api-search-app/)
 
+Video demo of running app:
+[https://www.youtube.com/watch?v=5a4otPwdAAE](https://www.youtube.com/watch?v=5a4otPwdAAE)
+
 
 ## Install on device
 
 From the link below yo ucan also install the app on your device:
 [https://build.phonegap.com/apps/1168175/share](https://build.phonegap.com/apps/1168175/share)
 
-(Install link is not available for iOS devices due missing Apple certificates)
+(Install link for iOS is not available due missing Apple certificates)
 
 
 First use after GIT clone
