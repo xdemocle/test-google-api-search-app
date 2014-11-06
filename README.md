@@ -70,3 +70,5 @@ From the link below yo ucan also install the app on your device:
   Go here: https://build.phonegap.com/apps/[appid]/install (to see the app installed. wait few minutes)
   [appid] need to be changed with appId present in package.json
 * type: grunt serve (run a working instance in your browser for development purpose)
+* type grunt build && ./deploy.sh (to build the app and deploy on GitHub static hosting pages)
+  (The build files will be created in dist/ folder and are also available in the gh=pages branch of this repo).
