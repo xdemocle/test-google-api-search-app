@@ -6,7 +6,7 @@
 
     var SinglePageApp = function() {
 
-      // Call parent
+      // Call parent application class
       Application.apply(this, arguments);
     };
 
