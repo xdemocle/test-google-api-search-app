@@ -4,12 +4,11 @@
   "title": "Test Google API Search App",
   "version": "0.5.0",
   "id": "com.xdemocle.testgoogleapisearchapp",
-  "idtest": "com.cloudfarm5.ox5testing",
   "adobe": {
-    "appId": "xxxxxxx",
+    "appId": "1168175",
     "keys": {
       "ios": {
-        "testing": "239846"
+        "testing": "252302"
       }
     }
   },

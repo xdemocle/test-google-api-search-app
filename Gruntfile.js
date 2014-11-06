@@ -510,7 +510,11 @@ module.exports = function (grunt) {
     ]);
   });
 
-  grunt.registerTask('build', [
+  grunt.registerTask('build', function() {
+
+    // var type = debug ? 'development' : 'production';
+
+    grunt.task.run([
     'clean:dist',
     'wiredep',
     'jshint',
@@ -525,14 +529,13 @@ module.exports = function (grunt) {
     'rev',
     'usemin',
     'htmlmin'
-  ]);
+    ]);
+  });
 
   grunt.registerTask('deploy', function(destination) {
     var debug;
 
-    if (typeof destination === 'undefined') {
-      destination = 'testing';
-    }
+    destination = destination || 'testing';
 
     grunt.config.set('phonegap.config.platforms', []);
     grunt.config.set('phonegap.config.plugins', []);
@@ -547,7 +550,10 @@ module.exports = function (grunt) {
 
     grunt.task.run(['phonegap:build', 'compress']);
 
-    grunt.task.run(['shell:unlockkey', 'phonegap-build:debug']);
+    grunt.task.run([
+      // 'shell:unlockkey',
+      'phonegap-build:debug'
+    ]);
   });
 
   grunt.registerTask('default', [
