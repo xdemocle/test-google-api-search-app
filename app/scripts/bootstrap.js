@@ -32,7 +32,7 @@ requirejs.config({
   // Starting the app when the DOM is ready/loaded
   document.addEventListener('DOMContentLoaded', function() {
 
-    requirejs(['applications/single-page-app'], function(SingleAppPage) {
+    requirejs(['applications/single-page-app', 'libs/utility'], function(SingleAppPage) {
 
       // Some console output
       console.info('DOM Loaded,', 'Cordova: ' + ('cordova' in win));
