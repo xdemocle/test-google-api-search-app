@@ -2133,7 +2133,7 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
 
     var SinglePageApp = function() {
 
-      // Call parent
+      // Call parent application class
       Application.apply(this, arguments);
     };
 
