@@ -1,7 +1,8 @@
-node_modules/
+node_modules
 .tmp
 .sass-cache
-bower_components/
+dist
+bower_components
 .DS_Store
 prebuild-adobe
 private.json
