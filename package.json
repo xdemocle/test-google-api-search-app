@@ -2,7 +2,7 @@
   "main": "test-google-api-search-app",
   "name": "test-google-api-search-app",
   "title": "Test Google API Search App",
-  "version": "0.5.0",
+  "version": "0.0.1",
   "id": "com.xdemocle.testgoogleapisearchapp",
   "adobe": {
     "appId": "1168175",

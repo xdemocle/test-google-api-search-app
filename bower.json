@@ -1,5 +1,5 @@
 {
-  "name": "24i-google-api-search",
+  "name": "test-google-api-search-app",
   "private": true,
   "dependencies": {
     "requirejs": "~2.1.15",

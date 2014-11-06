@@ -23,3 +23,23 @@ From the link below yo ucan also install the app on your device:
 [https://build.phonegap.com/apps/1168175/share](https://build.phonegap.com/apps/1168175/share)
 
 (Install link is not available for iOS devices due missing Apple certificates)
+
+
+First use after GIT clone
+------
+
+To install all dependencies of the environment you need Ruby, Node.js, Grunt and Bower installed locally.
+
+After all dependency installed on your system.
+Start with the commands below in your terminal:
+
+* npm install
+* bower install
+
+
+Usage
+-------
+
+One shot deploy for Adobe build:
+grunt deploy (jshint, compile, deploy to build phonegap)
+
