@@ -3,21 +3,15 @@
  */
 
 
-/* #### Mobile Phones Portrait #### */
-// @media screen and (max-device-width: 480px) and (orientation: portrait){
-//   /* some CSS here */
-// }
-
-/* #### Mobile Phones Landscape #### */
-// @media screen and (max-device-width: 640px) and (orientation: landscape){
-//   /* some CSS here */
-// }
-
-/* #### Mobile Phones Portrait or Landscape #### */
+/* #### All Non-Desktop devices or very old screens #### */
 @media screen and (max-device-width: 767px), screen and (max-width: 767px) {
 
   .boxes .box {
     display: block;
+
+    &:first-child {
+      margin-top: .8rem;
+    }
   }
 
   .w100, .w90, .w80, .w70, .w60, .w50, .w40, .w30, .w20, .w10 {
@@ -60,6 +54,30 @@
         content: '+';
       }
     }
+  }
+}
+
+/* #### Mobile Phones Portrait #### */
+@media screen and (max-device-width: 480px) and (orientation: portrait){
+
+  .app .wrapper {
+    padding: 0;
+  }
+
+  .main {
+    top: 10rem;
+  }
+}
+
+/* #### Mobile Phones Landscape #### */
+@media screen and (max-device-width: 640px) and (orientation: landscape){
+
+  .app .wrapper {
+    padding: 0;
+  }
+
+  .main {
+    top: 10rem;
   }
 }
 
