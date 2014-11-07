@@ -641,57 +641,119 @@
 (function() {
   
 
+  define('applications/base/application',['libs/fakejQuery'], function($) {
+
+    /**
+     * Base class with basic features to run an application
+     * @param Object options
+     */
+    function Application(options) {
+
+      if (options && typeof options === 'object') {
+        this.container = options.container && options.container || false;
+      }
+
+      // Auto initialize
+      this.initialize();
+    }
+
+    Application.prototype = {
+
+      container: null,
+
+      main: null,
+
+      regions: null,
+
+      initialize: function() {
+
+        // Auto-init the layout of the app
+        this.layout();
+      },
+
+      layout: function() {
+
+        var that = this,
+            SiteView = this.main,
+            wrapper = $(this.container);
+
+        // Check if container not exist
+        if (wrapper.length < 1) {
+
+          // Make a container onfly
+          wrapper = $('div', {'id':'app','class':'app'});
+
+          // Prepend on body
+          $('body').prepend(wrapper);
+        }
+
+        // Run main SiteView and make regions as callback
+        this.main = new SiteView({
+          'callback': function(){
+
+            // Istance other views for regions
+            that.makeRegions();
+          }
+        });
+      },
+
+      makeRegions: function() {
+
+        var that = this,
+            total = this.regions.length,
+            last = total-1;
+
+        this.regions.forEach(function(View, index){
+
+          // Load the single view
+          new View();
+
+          // Do stuff in the end of regions making
+          if (last === index) {
+
+            // Run the end method
+            setTimeout(function(){
+              that.end();
+            }, 0);
+          }
+        });
+      },
+
+      end: function() {
+
+        // Hide loader if exist
+        this.main.hideLoader();
+      }
+    };
+
+    return Application;
+  });
+
+}).call(this);
+
+/*global define */
+(function() {
+  
+
   var win = this;
 
   define('views/base/view',['libs/fakejQuery'], function($) {
 
-    var View = function(opts) {
+    var View = function(options) {
 
-      // Stop if options is not passed or neither the opts.id
-      if (!opts || (opts && !opts.id)) { return; }
-
-      // Register name of View
-      this.id = opts.id;
-      this.container = opts.container;
-
-      // Set autorender
-      this.autoRender = opts.autoRender === false ? false : true;
-
-      // Set optional template
-      if (opts.template) { this.template = opts.template; }
-
-      // Set optional item collection template and container
-      if (opts.itemTpl && opts.itemsContainer) {
-        this.itemTpl = opts.itemTpl;
-        this.itemsContainer = opts.itemsContainer;
-      }
-
-      // Set classes from opts.classes
-      if (opts.classes) { this.classes = opts.classes; }
-
-      // Set events
-      if (opts.events) {
-        this.events = opts.events;
-      }
-
-      // Set pager values
-      if (opts.pager) {
-        this.pagerTotal = opts.pager.total;
-        this.pagerNum = opts.pager.num;
-      }
-
-      // Set model from opts.model
-      if (opts.model) { this.model = opts.model; }
+      // Define a master callback for main SiteView
+      if (options && options.callback) { this.callback = options.callback; }
+      if (options && options.container) { this.container = options.container; }
 
       // Autorun
-      this.initialize(opts);
+      this.initialize();
     };
 
     View.prototype = {
 
       $el: null,
 
-      autoRender: null,
+      autoRender: true,
 
       classes: null,
 
@@ -703,17 +765,19 @@
 
       eventsReady: false,
 
+      id: null,
+
       loader: false,
 
       loaderTimeoutID: false,
 
       model: null,
 
-      pagernum: null,
+      pager: null,
 
-      subviews: null,
+      subviews: {},
 
-      subviewsByName: null,
+      subviewsByName: {},
 
       template: null,
 
@@ -743,20 +807,9 @@
           this.$el.addClass(this.classes);
         }
 
-        // If model and attributes is present, parse also the data
-        if (this.model && this.model.attributes) { this.parseData(); }
-
         // Check if autoRender is set
         if (this.autoRender) {
           this.render();
-        }
-      },
-
-      parseData: function() {
-
-        // Check if we have Model attributes
-        if (this.model && this.model.attributes) {
-          console.log(this.$el, this.model);
         }
       },
 
@@ -792,9 +845,9 @@
               end = this.model.collection.length-1;
 
           // Check if we have all values to make a pager
-          if (this.pagerTotal && this.pagerNum) {
+          if (this.pager && this.pager.total && this.pager.num) {
 
-            var num = this.pagerNum,
+            var num = this.pager.num,
                 // pages = Math.ceil(tot / num),
                 loc = location.hash,
                 limit = (loc === '#text1' || loc === '') ? num :
@@ -851,7 +904,9 @@
           });
 
           // Create pager
-          if (this.pagerTotal && this.pagerNum) { this.makePager(); }
+          if (this.pager && this.pager.total && this.pager.num) {
+            this.makePager();
+          }
         }
 
         return this;
@@ -862,8 +917,8 @@
         // Empty the pager
         $(this.el).find('#pager').html('');
 
-        var tot = this.model.collection.length || this.pagerTotal,
-            num = this.pagerNum,
+        var tot = this.model.collection.length || this.pager.total,
+            num = this.pager.num,
             pages = Math.ceil(tot / num),
             loc = location.hash;
 
@@ -900,11 +955,17 @@
         // Local function for DOM change event
         var onDomChange = function(){
 
-          // Run callback standalone
+          // Run also a class callback if exist
+          if (that.callback) { that.callback(); }
+
+          // Run parameter callback
           if (callback) { callback(); }
 
           // Load events for this view
           if (!that.eventsReady) { that.loadEvents(); }
+
+          // Render also subviews
+          if (that.subviews) { that.createSubViews(); }
 
           // Remove event listener
           $(that.container).el
@@ -913,6 +974,8 @@
 
         // Append the view rendered
         setTimeout(function(){
+
+          // console.log(that.container, $(that.container).el);
 
           // Listening to DOM attach event
           $(that.container).el
@@ -926,38 +989,44 @@
         return this;
       },
 
-      subview: function(name, options) {
+      createSubViews: function() {
 
-        if (!options ) { return; }
+        // Make some checks
+        if (Object.keys(this.subviewsByName).length > 0) { return; }
+        else if (Object.keys(this.subviews).length === 0) { return; }
 
-        // Initiate the subviews as array
-        if (!this.subviews && !this.subviewsByName) {
-          this.subviews = [];
-          this.subviewsByName = {};
+        var that = this;
+
+        // Iterate subviews object
+        for (var name in this.subviews) {
+
+          // Instantiate subview
+          that.subview(name, this.subviews[name]);
         }
+      },
 
-        // Set the proper container taken from the parent view
-        options.container = '#'+this.id;
+      subview: function(name, SubView, options) {
 
-        var that = this,
-            filepath = 'views/' + name.toLowerCase() + '-view';
+        // Check if options exist
+        options = options || {};
 
-        // Load the specific view
-        require([filepath], function(SubView){
+        // Check if the subview is already existent
+        if (this.subviewsByName[name]) {
 
-          // Initiate the new View
+          return this.subviewsByName[name];
+
+        } else {
+
+          // Set the proper container taken from the parent view
+          options.container = '#'+this.id;
+
+          // Instantiate the new SubView
           var view = new SubView(options);
 
-          if (name && view) {
+          this.subviewsByName[name] = view;
 
-            that.subviews.push(view);
-            that.subviewsByName[name] = view;
-
-            return view;
-          } else if (name) {
-            return that.subviewsByName[name];
-          }
-        });
+          return view;
+        }
       },
 
       loadEvents: function() {
@@ -1604,12 +1673,24 @@ define('text!templates/site-view.html',[],function () { return '<!-- Top box -->
     'text!templates/site-view.html'
   ], function(View, Model, Template) {
 
-    var SiteView = new View({
-      'id': 'site-view',
-      'container': '#app',
-      'classes': 'wrapper',
-      'template': Template
-    });
+    var SiteView = function() {
+
+      // Call parent application class
+      View.apply(this, arguments);
+    };
+
+    // Extend prototype
+    SiteView.prototype = Object.create(View.prototype);
+
+    SiteView.prototype.autoRender = true;
+
+    SiteView.prototype.classes = 'wrapper';
+
+    SiteView.prototype.container = '#app';
+
+    SiteView.prototype.id = 'site-view';
+
+    SiteView.prototype.template = Template;
 
     return SiteView;
   });
@@ -1747,16 +1828,26 @@ define('text!templates/header-view.html',[],function () { return '<form name="se
     };
 
     /**
-     * Istantiating the header view
-     * @type View
+     * Header view class
      */
-    var HeaderView = new View({
-      'id': 'header-view',
-      'classes': 'header-container',
-      'container': '#header',
-      'template': Template,
-      'events': [submitSearch]
-    });
+    var HeaderView = function(){
+
+      // Call base view
+      View.apply(this, arguments);
+    };
+
+    // Extend prototype
+    HeaderView.prototype = Object.create(View.prototype);
+
+    HeaderView.prototype.id = 'header-view';
+
+    HeaderView.prototype.classes = 'header-container';
+
+    HeaderView.prototype.container = '#header';
+
+    HeaderView.prototype.template = Template;
+
+    HeaderView.prototype.events = [submitSearch];
 
     return HeaderView;
   });
@@ -1765,67 +1856,6 @@ define('text!templates/header-view.html',[],function () { return '<form name="se
 
 
 define('text!templates/main-images-view.html',[],function () { return '<!-- Image result section -->\n<section id="search-result-images" class="search-result-images">\n\n  <h2>Image result</h2>\n\n  <div class="results" id="results"></div>\n\n</section>\n\n<script type="text/template" id="serp-image-item">\n<article>\n  <a href="javascript:window.u.openLink(\'{{link}}\')" target="_blank" style="background-image:url(\'{{image.thumbnailLink}}\')" title="{{title}}"></a>\n</article>\n</script>\n';});
-
-
-define('text!templates/main-texts-view.html',[],function () { return '<!-- Textual result section -->\n<section id="search-result-texts" class="search-result-texts">\n\n  <h2>Web result</h2>\n\n  <div class="results" id="results"></div>\n\n  <footer class="pager" id="pager"></footer>\n\n</section>\n\n<script type="text/template" id="serp-text-item">\n<article>\n  <span class="title">{{htmlTitle}}</span>\n  <span class="link"><a href="javascript:window.u.openLink(\'{{link}}\')" target="_blank">{{htmlFormattedUrl}}</a></span>\n  <span class="text">{{htmlSnippet}}</span>\n</article>\n</script>\n';});
-
-/*global define */
-(function() {
-  
-
-  define('models/goo-serp-texts-result',['libs/fakejQuery', 'models/base/model'], function($, Model) {
-
-    var ModelTexts = function() {
-
-      // Set the endpoint url
-      this.url = 'https://www.googleapis.com/customsearch/v1' +
-                 '?cx=004417568209807888223%3A6slior__w8o&' +
-                 'key=AIzaSyDuRaWmTk3jDfm1u4ejlHICRNYXaO2-BV8&num=9&q=';
-
-      // this.url = '../dummy-api/dummy-text-result-q-lectures.json?';
-
-      // Call model parent
-      Model.call(this, arguments);
-    };
-
-    // Extend prototype
-    ModelTexts.prototype = Object.create(Model.prototype);
-
-    /**
-     * Hook of parse
-     * @return Array
-     */
-    ModelTexts.prototype.parse = function(response) {
-
-      // Stop execution
-      if (!response || !response.items) { return; }
-
-      // Copy response items in collection instead of attributes
-      this.collection = response.items;
-
-      return response.items;
-    };
-
-    /**
-     * Fetch data from endpoint
-     * @return Array
-     */
-    ModelTexts.prototype.search = function(q, callbacks) {
-
-      // Run before function
-      if (callbacks.before) { callbacks.before(); }
-
-      // Set the search term
-      this.searchTerm = encodeURI(q);
-
-      // Return the ajax call
-      return this.fetch(callbacks && callbacks.after);
-    };
-
-    return ModelTexts;
-  });
-
-}).call(this);
 
 /*global define */
 (function() {
@@ -1883,7 +1913,7 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
       this.searchTerm = encodeURI(q);
 
       // Return the ajax call
-      this.fetch(callbacks && callbacks.after);
+      return this.fetch(callbacks && callbacks.after);
     };
 
     return ModelImages;
@@ -1895,15 +1925,11 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
 (function() {
   
 
-  var win = this;
-
-  define('views/main-view',[
+  define('views/searchimages-view',[
     'views/base/view',
     'text!templates/main-images-view.html',
-    'text!templates/main-texts-view.html',
-    'models/goo-serp-texts-result',
-    'models/goo-serp-images-result'
-  ], function(View, TplMainImages, TplMainTexts, ModelTexts, ModelImages) {
+    'models/goo-serp-images-result',
+  ], function(View, Template, Model) {
 
     /**
      * Pre-listen to h2 tag
@@ -1928,63 +1954,8 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
     };
 
     /**
-     * Istantiate the MainView
-     * @type {View}
+     * SearchImagesView class
      */
-    var MainView = new View({
-      'id': 'main-view',
-      'container': '#main',
-      'classes': 'main-container boxes'
-    });
-
-    /**
-     * Istantiate a subview
-     */
-    MainView.subview('SearchImages', {
-      'id': 'main-images-view',
-      'classes': 'box w50',
-      'autoRender': false,
-      'template': TplMainImages,
-      'model': new ModelImages(),
-      'itemTpl': '#serp-image-item',
-      'itemsContainer': '#results',
-      'events': [clickH2]
-    });
-
-    /**
-     * Istantiate a subview
-     */
-    MainView.subview('SearchTexts', {
-      'id': 'main-texts-view',
-      'classes': 'box w50',
-      'autoRender': false,
-      'template': TplMainTexts,
-      'model': new ModelTexts(),
-      'itemTpl': '#serp-text-item',
-      'itemsContainer': '#results',
-      'events': [clickH2],
-      'pager': {
-        'total': 9,
-        'num': 3
-      }
-    });
-
-    // Register MainView in mediator
-    win.mediator.MainView = MainView;
-
-    return MainView;
-  });
-
-}).call(this);
-
-/*global define */
-(function() {
-  
-
-  define('views/searchimages-view',[
-    'views/base/view'
-  ], function(View) {
-
     var SearchImagesView = function(options) {
 
       // Call parent
@@ -1994,7 +1965,89 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
     // Extend
     SearchImagesView.prototype = Object.create(View.prototype);
 
+    SearchImagesView.prototype.id = 'main-images-view';
+
+    SearchImagesView.prototype.classes = 'box w50';
+
+    SearchImagesView.prototype.autoRender = false;
+
+    SearchImagesView.prototype.template = Template;
+
+    SearchImagesView.prototype.model = new Model();
+
+    SearchImagesView.prototype.itemTpl = '#serp-image-item';
+
+    SearchImagesView.prototype.itemsContainer = '#results';
+
+    SearchImagesView.prototype.events = [clickH2];
+
     return SearchImagesView;
+  });
+
+}).call(this);
+
+
+define('text!templates/main-texts-view.html',[],function () { return '<!-- Textual result section -->\n<section id="search-result-texts" class="search-result-texts">\n\n  <h2>Web result</h2>\n\n  <div class="results" id="results"></div>\n\n  <footer class="pager" id="pager"></footer>\n\n</section>\n\n<script type="text/template" id="serp-text-item">\n<article>\n  <span class="title">{{htmlTitle}}</span>\n  <span class="link"><a href="javascript:window.u.openLink(\'{{link}}\')" target="_blank">{{htmlFormattedUrl}}</a></span>\n  <span class="text">{{htmlSnippet}}</span>\n</article>\n</script>\n';});
+
+/*global define */
+(function() {
+  
+
+  define('models/goo-serp-texts-result',['libs/fakejQuery', 'models/base/model'], function($, Model) {
+
+    var ModelTexts = function() {
+
+      // Set the endpoint url
+      this.url = 'https://www.googleapis.com/customsearch/v1' +
+                 '?cx=004417568209807888223%3A6slior__w8o&' +
+                 'key=AIzaSyDuRaWmTk3jDfm1u4ejlHICRNYXaO2-BV8&num=9&q=';
+
+      // this.url = '../dummy-api/dummy-text-result-q-lectures.json?';
+
+      // Call model parent
+      Model.call(this, arguments);
+    };
+
+    // Extend prototype
+    ModelTexts.prototype = Object.create(Model.prototype);
+
+    /**
+     * Hook of parse
+     * @return Array
+     */
+    ModelTexts.prototype.parse = function(response) {
+
+      // Reset the model in case of no result
+      if (Number(response.searchInformation.totalResults) === 0) {
+        this.collection = null;
+      }
+
+      // Stop execution
+      if (!response || !response.items) { return; }
+
+      // Copy response items in collection instead of attributes
+      this.collection = response.items;
+
+      return response.items;
+    };
+
+    /**
+     * Fetch data from endpoint
+     * @return Array
+     */
+    ModelTexts.prototype.search = function(q, callbacks) {
+
+      // Run before function
+      if (callbacks.before) { callbacks.before(); }
+
+      // Set the search term
+      this.searchTerm = encodeURI(q);
+
+      // Return the ajax call
+      return this.fetch(callbacks && callbacks.after);
+    };
+
+    return ModelTexts;
   });
 
 }).call(this);
@@ -2004,9 +2057,36 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
   
 
   define('views/searchtexts-view',[
-    'views/base/view'
-  ], function(View) {
+    'views/base/view',
+    'text!templates/main-texts-view.html',
+    'models/goo-serp-texts-result'
+  ], function(View, Template, Model) {
 
+    /**
+     * Pre-listen to h2 tag
+     * @param  eventType, element, function
+     * @return empty
+     */
+    var clickH2 = function(self){
+
+      self.listenTo('click', 'h2', function(evt){
+
+        var parent = evt.target.parentElement;
+
+        if ($(parent).hasClass('closed')) {
+
+          $(parent).removeClass('closed');
+
+        } else {
+
+          $(parent).addClass('closed');
+        }
+      });
+    };
+
+    /**
+     * SearchTextsView class
+     */
     var SearchTextsView = function(options) {
 
       // Call parent
@@ -2015,6 +2095,24 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
 
     // Extend
     SearchTextsView.prototype = Object.create(View.prototype);
+
+    SearchTextsView.prototype.id = 'main-texts-view';
+
+    SearchTextsView.prototype.classes = 'box w50';
+
+    SearchTextsView.prototype.autoRender = false;
+
+    SearchTextsView.prototype.template = Template;
+
+    SearchTextsView.prototype.model = new Model();
+
+    SearchTextsView.prototype.itemTpl = '#serp-text-item';
+
+    SearchTextsView.prototype.itemsContainer = '#results';
+
+    SearchTextsView.prototype.events = [clickH2];
+
+    SearchTextsView.prototype.pager = {'total': 9, 'num': 3};
 
     return SearchTextsView;
   });
@@ -2025,103 +2123,49 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
 (function() {
   
 
-  define('applications/base/application',[
-    'libs/fakejQuery',
-    'views/site-view',
-    'views/header-view',
-    'views/main-view',
+  var win = this;
+
+  define('views/main-view',[
+    'views/base/view',
     'views/searchimages-view',
     'views/searchtexts-view'
-  ], function($) {
+  ], function(View, SearchImages, SearchTexts) {
 
-    function Application(options) {
+    /**
+     * Istantiate the MainView
+     * @type {View}
+     */
+    var MainView = function(){
 
-      if (options && typeof options === 'object') {
-        this.main = options.main && options.main || false;
-        this.container = options.container && options.container || false;
-        this.regions = options.regions && options.regions || false;
-      }
-
-      // Auto initialize
-      this.initialize(options);
-    }
-
-    Application.prototype = {
-
-      main: null,
-
-      container: null,
-
-      regions: null,
-
-      initialize: function() {
-
-        // Auto-init the layout of the app
-        this.layout();
-      },
-
-      layout: function() {
-
-        var that = this,
-            wrapper = $(this.container),
-            fileName = that.main.replace('#',''),
-            filepath = 'views/'+fileName;
-
-        // Check if container not exist
-        if (wrapper.length < 1) {
-
-          // Make a container onfly
-          wrapper = $('div', {'id':'app','class':'app'});
-
-          // Prepend on body
-          $('body').prepend(wrapper);
-        }
-
-        // Load main view for base layout
-        require([filepath], function(MainView){
-
-          // Update main
-          that.main = MainView;
-
-          // Create other views for regions
-          that.makeRegions();
-        });
-      },
-
-      makeRegions: function() {
-
-        var that = this,
-            total = this.regions.length,
-            last = total-1;
-
-        this.regions.forEach(function(region, index){
-
-          // Local vars
-          var filepath = 'views/' + region + '-view';
-
-          // Load main view for base layout
-          require([filepath], function() {
-
-            // Do stuff in the end of regions making
-            if (last === index) {
-
-              // Run the end method
-              setTimeout(function(){
-                that.end();
-              }, 0);
-            }
-          });
-        });
-      },
-
-      end: function() {
-
-        // Hide loader if exist
-        this.main.hideLoader();
-      }
+      // Call base view
+      View.apply(this, arguments);
     };
 
-    return Application;
+    // Extend prototype
+    MainView.prototype = Object.create(View.prototype);
+
+    MainView.prototype.id = 'main-view';
+
+    MainView.prototype.classes = 'main-container boxes';
+
+    MainView.prototype.container = '#main';
+
+    MainView.prototype.callback = function(){
+
+      // Register MainView in mediator
+      win.mediator.MainView = this;
+    };
+
+    /**
+     * Lists the subviews that need to be instantiated
+     * @type array
+     */
+    MainView.prototype.subviews = {
+      'SearchImages': SearchImages,
+      'SearchTexts': SearchTexts
+    };
+
+    return MainView;
   });
 
 }).call(this);
@@ -2130,16 +2174,37 @@ define('text!templates/main-texts-view.html',[],function () { return '<!-- Textu
 (function() {
   
 
-  define('applications/single-page-app',['libs/fakejQuery', 'applications/base/application'], function($, Application) {
+  define('applications/single-page-app',[
+    'libs/fakejQuery',
+    'applications/base/application',
+    'views/site-view',
+    'views/header-view',
+    'views/main-view'
+  ], function($, Application, SiteView, HeadView, MainView) {
 
+    /**
+     * Single Page App main class
+     */
     var SinglePageApp = function() {
 
       // Call parent application class
       Application.apply(this, arguments);
     };
 
-    // Extend prototype
+    /**
+     * Extend prototype class
+     */
     SinglePageApp.prototype = Object.create(Application.prototype);
+
+    /**
+     * Set the main view of the app
+     */
+    SinglePageApp.prototype.main = SiteView;
+
+    /**
+     * Set the list of regions view of the main view
+     */
+    SinglePageApp.prototype.regions = [HeadView, MainView];
 
     return SinglePageApp;
   });
@@ -2222,13 +2287,9 @@ requirejs.config({
       // onDeviceReady function to start the application
       var onDeviceReady = function() {
 
-        // Some console output
-        console.info('App started');
-
+        // Instantiate the new app
         new SingleAppPage({
-          'container': '#app',
-          'main': '#site-view',
-          'regions': ['header', 'main']
+          'container': '#app'
         });
       };
 
