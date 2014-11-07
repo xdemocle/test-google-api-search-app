@@ -70,7 +70,8 @@
 }
 
 /* #### Mobile Phones Landscape #### */
-@media screen and (max-device-width: 640px) and (orientation: landscape){
+@media screen and (max-device-width: 640px) and (orientation: landscape),
+       screen and (max-width: 640px) {
 
   .app .wrapper {
     padding: 0;
