@@ -897,6 +897,7 @@
 
         this.resetPager();
 
+        // Local function for DOM change event
         var onDomChange = function(){
 
           // Run callback standalone
@@ -913,14 +914,14 @@
         // Append the view rendered
         setTimeout(function(){
 
-          //
+          // Listening to DOM attach event
           $(that.container).el
             .addEventListener('DOMSubtreeModified', onDomChange, false);
 
           // Attach to the DOM
           $(that.container).append(that.el);
 
-        }, 0);
+        }, 1);
 
         return this;
       },
@@ -2213,13 +2214,16 @@ requirejs.config({
   // Starting the app when the DOM is ready/loaded
   document.addEventListener('DOMContentLoaded', function() {
 
-    requirejs(['applications/single-page-app', 'libs/utility'], function(SingleAppPage) {
+    // Some console output
+    console.info('DOM Loaded,', 'Cordova: ' + ('cordova' in win));
 
-      // Some console output
-      console.info('DOM Loaded,', 'Cordova: ' + ('cordova' in win));
+    requirejs(['applications/single-page-app', 'libs/utility'], function(SingleAppPage) {
 
       // onDeviceReady function to start the application
       var onDeviceReady = function() {
+
+        // Some console output
+        console.info('App started');
 
         new SingleAppPage({
           'container': '#app',
