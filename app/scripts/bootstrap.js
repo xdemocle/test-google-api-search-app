@@ -32,18 +32,17 @@ requirejs.config({
   // Starting the app when the DOM is ready/loaded
   document.addEventListener('DOMContentLoaded', function() {
 
-    requirejs(['applications/single-page-app', 'libs/utility'], function(SingleAppPage) {
+    // Some console output
+    console.info('DOM Loaded,', 'Cordova: ' + ('cordova' in win));
 
-      // Some console output
-      console.info('DOM Loaded,', 'Cordova: ' + ('cordova' in win));
+    requirejs(['applications/single-page-app', 'libs/utility'], function(SingleAppPage) {
 
       // onDeviceReady function to start the application
       var onDeviceReady = function() {
 
+        // Instantiate the new app
         new SingleAppPage({
-          'container': '#app',
-          'main': '#site-view',
-          'regions': ['header', 'main']
+          'container': '#app'
         });
       };
 

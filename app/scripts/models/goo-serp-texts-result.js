@@ -26,6 +26,11 @@
      */
     ModelTexts.prototype.parse = function(response) {
 
+      // Reset the model in case of no result
+      if (Number(response.searchInformation.totalResults) === 0) {
+        this.collection = null;
+      }
+
       // Stop execution
       if (!response || !response.items) { return; }
 

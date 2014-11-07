@@ -2,32 +2,27 @@
 (function() {
   'use strict';
 
-  define([
-    'libs/fakejQuery',
-    'views/site-view',
-    'views/header-view',
-    'views/main-view',
-    'views/searchimages-view',
-    'views/searchtexts-view'
-  ], function($) {
+  define(['libs/fakejQuery'], function($) {
 
+    /**
+     * Base class with basic features to run an application
+     * @param Object options
+     */
     function Application(options) {
 
       if (options && typeof options === 'object') {
-        this.main = options.main && options.main || false;
         this.container = options.container && options.container || false;
-        this.regions = options.regions && options.regions || false;
       }
 
       // Auto initialize
-      this.initialize(options);
+      this.initialize();
     }
 
     Application.prototype = {
 
-      main: null,
-
       container: null,
+
+      main: null,
 
       regions: null,
 
@@ -40,9 +35,8 @@
       layout: function() {
 
         var that = this,
-            wrapper = $(this.container),
-            fileName = that.main.replace('#',''),
-            filepath = 'views/'+fileName;
+            SiteView = this.main,
+            wrapper = $(this.container);
 
         // Check if container not exist
         if (wrapper.length < 1) {
@@ -54,14 +48,13 @@
           $('body').prepend(wrapper);
         }
 
-        // Load main view for base layout
-        require([filepath], function(MainView){
+        // Run main SiteView and make regions as callback
+        this.main = new SiteView({
+          'callback': function(){
 
-          // Update main
-          that.main = MainView;
-
-          // Create other views for regions
-          that.makeRegions();
+            // Istance other views for regions
+            that.makeRegions();
+          }
         });
       },
 
@@ -71,23 +64,19 @@
             total = this.regions.length,
             last = total-1;
 
-        this.regions.forEach(function(region, index){
+        this.regions.forEach(function(View, index){
 
-          // Local vars
-          var filepath = 'views/' + region + '-view';
+          // Load the single view
+          new View();
 
-          // Load main view for base layout
-          require([filepath], function() {
+          // Do stuff in the end of regions making
+          if (last === index) {
 
-            // Do stuff in the end of regions making
-            if (last === index) {
-
-              // Run the end method
-              setTimeout(function(){
-                that.end();
-              }, 0);
-            }
-          });
+            // Run the end method
+            setTimeout(function(){
+              that.end();
+            }, 0);
+          }
         });
       },
 

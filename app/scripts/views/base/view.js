@@ -6,53 +6,21 @@
 
   define(['libs/fakejQuery'], function($) {
 
-    var View = function(opts) {
+    var View = function(options) {
 
-      // Stop if options is not passed or neither the opts.id
-      if (!opts || (opts && !opts.id)) { return; }
-
-      // Register name of View
-      this.id = opts.id;
-      this.container = opts.container;
-
-      // Set autorender
-      this.autoRender = opts.autoRender === false ? false : true;
-
-      // Set optional template
-      if (opts.template) { this.template = opts.template; }
-
-      // Set optional item collection template and container
-      if (opts.itemTpl && opts.itemsContainer) {
-        this.itemTpl = opts.itemTpl;
-        this.itemsContainer = opts.itemsContainer;
-      }
-
-      // Set classes from opts.classes
-      if (opts.classes) { this.classes = opts.classes; }
-
-      // Set events
-      if (opts.events) {
-        this.events = opts.events;
-      }
-
-      // Set pager values
-      if (opts.pager) {
-        this.pagerTotal = opts.pager.total;
-        this.pagerNum = opts.pager.num;
-      }
-
-      // Set model from opts.model
-      if (opts.model) { this.model = opts.model; }
+      // Define a master callback for main SiteView
+      if (options && options.callback) { this.callback = options.callback; }
+      if (options && options.container) { this.container = options.container; }
 
       // Autorun
-      this.initialize(opts);
+      this.initialize();
     };
 
     View.prototype = {
 
       $el: null,
 
-      autoRender: null,
+      autoRender: true,
 
       classes: null,
 
@@ -64,17 +32,19 @@
 
       eventsReady: false,
 
+      id: null,
+
       loader: false,
 
       loaderTimeoutID: false,
 
       model: null,
 
-      pagernum: null,
+      pager: null,
 
-      subviews: null,
+      subviews: {},
 
-      subviewsByName: null,
+      subviewsByName: {},
 
       template: null,
 
@@ -104,20 +74,9 @@
           this.$el.addClass(this.classes);
         }
 
-        // If model and attributes is present, parse also the data
-        if (this.model && this.model.attributes) { this.parseData(); }
-
         // Check if autoRender is set
         if (this.autoRender) {
           this.render();
-        }
-      },
-
-      parseData: function() {
-
-        // Check if we have Model attributes
-        if (this.model && this.model.attributes) {
-          console.log(this.$el, this.model);
         }
       },
 
@@ -153,9 +112,9 @@
               end = this.model.collection.length-1;
 
           // Check if we have all values to make a pager
-          if (this.pagerTotal && this.pagerNum) {
+          if (this.pager && this.pager.total && this.pager.num) {
 
-            var num = this.pagerNum,
+            var num = this.pager.num,
                 // pages = Math.ceil(tot / num),
                 loc = location.hash,
                 limit = (loc === '#text1' || loc === '') ? num :
@@ -212,7 +171,9 @@
           });
 
           // Create pager
-          if (this.pagerTotal && this.pagerNum) { this.makePager(); }
+          if (this.pager && this.pager.total && this.pager.num) {
+            this.makePager();
+          }
         }
 
         return this;
@@ -223,8 +184,8 @@
         // Empty the pager
         $(this.el).find('#pager').html('');
 
-        var tot = this.model.collection.length || this.pagerTotal,
-            num = this.pagerNum,
+        var tot = this.model.collection.length || this.pager.total,
+            num = this.pager.num,
             pages = Math.ceil(tot / num),
             loc = location.hash;
 
@@ -258,13 +219,20 @@
 
         this.resetPager();
 
+        // Local function for DOM change event
         var onDomChange = function(){
 
-          // Run callback standalone
+          // Run also a class callback if exist
+          if (that.callback) { that.callback(); }
+
+          // Run parameter callback
           if (callback) { callback(); }
 
           // Load events for this view
           if (!that.eventsReady) { that.loadEvents(); }
+
+          // Render also subviews
+          if (that.subviews) { that.createSubViews(); }
 
           // Remove event listener
           $(that.container).el
@@ -274,50 +242,58 @@
         // Append the view rendered
         setTimeout(function(){
 
-          //
+          // console.log(that.container, $(that.container).el);
+
+          // Listening to DOM attach event
           $(that.container).el
             .addEventListener('DOMSubtreeModified', onDomChange, false);
 
           // Attach to the DOM
           $(that.container).append(that.el);
 
-        }, 0);
+        }, 1);
 
         return this;
       },
 
-      subview: function(name, options) {
+      createSubViews: function() {
 
-        if (!options ) { return; }
+        // Make some checks
+        if (Object.keys(this.subviewsByName).length > 0) { return; }
+        else if (Object.keys(this.subviews).length === 0) { return; }
 
-        // Initiate the subviews as array
-        if (!this.subviews && !this.subviewsByName) {
-          this.subviews = [];
-          this.subviewsByName = {};
+        var that = this;
+
+        // Iterate subviews object
+        for (var name in this.subviews) {
+
+          // Instantiate subview
+          that.subview(name, this.subviews[name]);
         }
+      },
 
-        // Set the proper container taken from the parent view
-        options.container = '#'+this.id;
+      subview: function(name, SubView, options) {
 
-        var that = this,
-            filepath = 'views/' + name.toLowerCase() + '-view';
+        // Check if options exist
+        options = options || {};
 
-        // Load the specific view
-        require([filepath], function(SubView){
+        // Check if the subview is already existent
+        if (this.subviewsByName[name]) {
 
-          // Initiate the new View
+          return this.subviewsByName[name];
+
+        } else {
+
+          // Set the proper container taken from the parent view
+          options.container = '#'+this.id;
+
+          // Instantiate the new SubView
           var view = new SubView(options);
 
-          if (name && view) {
+          this.subviewsByName[name] = view;
 
-            that.subviews.push(view);
-            that.subviewsByName[name] = view;
-
-            return view;
-          } else if (name) {
-            return that.subviewsByName[name];
-          }
-        });
+          return view;
+        }
       },
 
       loadEvents: function() {

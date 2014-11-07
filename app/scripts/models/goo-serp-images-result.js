@@ -54,7 +54,7 @@
       this.searchTerm = encodeURI(q);
 
       // Return the ajax call
-      this.fetch(callbacks && callbacks.after);
+      return this.fetch(callbacks && callbacks.after);
     };
 
     return ModelImages;

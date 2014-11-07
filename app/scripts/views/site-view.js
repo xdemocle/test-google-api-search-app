@@ -8,12 +8,24 @@
     'text!templates/site-view.html'
   ], function(View, Model, Template) {
 
-    var SiteView = new View({
-      'id': 'site-view',
-      'container': '#app',
-      'classes': 'wrapper',
-      'template': Template
-    });
+    var SiteView = function() {
+
+      // Call parent application class
+      View.apply(this, arguments);
+    };
+
+    // Extend prototype
+    SiteView.prototype = Object.create(View.prototype);
+
+    SiteView.prototype.autoRender = true;
+
+    SiteView.prototype.classes = 'wrapper';
+
+    SiteView.prototype.container = '#app';
+
+    SiteView.prototype.id = 'site-view';
+
+    SiteView.prototype.template = Template;
 
     return SiteView;
   });

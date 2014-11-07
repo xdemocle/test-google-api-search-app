@@ -126,16 +126,26 @@
     };
 
     /**
-     * Istantiating the header view
-     * @type View
+     * Header view class
      */
-    var HeaderView = new View({
-      'id': 'header-view',
-      'classes': 'header-container',
-      'container': '#header',
-      'template': Template,
-      'events': [submitSearch]
-    });
+    var HeaderView = function(){
+
+      // Call base view
+      View.apply(this, arguments);
+    };
+
+    // Extend prototype
+    HeaderView.prototype = Object.create(View.prototype);
+
+    HeaderView.prototype.id = 'header-view';
+
+    HeaderView.prototype.classes = 'header-container';
+
+    HeaderView.prototype.container = '#header';
+
+    HeaderView.prototype.template = Template;
+
+    HeaderView.prototype.events = [submitSearch];
 
     return HeaderView;
   });
